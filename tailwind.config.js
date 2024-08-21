@@ -34,5 +34,6 @@ export default {
     plugins: [
         require('autoprefixer'),
         require('postcss-custom-properties'),
+        require('@tailwindcss/aspect-ratio')
     ],
 }

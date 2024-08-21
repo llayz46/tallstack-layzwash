@@ -6,14 +6,10 @@
 
 @layer base {
     :root {
-        --text-title: #18181b;
-        --text-body: #27272a;
         --background: #ffffff;
     }
 
     .dark {
-        --text-title: #fbfbfe;
-        --text-body: #d4d4d8;
         --background: #0e0e11;
     }
 }
