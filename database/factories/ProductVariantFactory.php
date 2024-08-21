@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,11 @@ class ProductVariantFactory extends Factory
      */
     public function definition(): array
     {
+        $bool = $this->faker->boolean;
+
         return [
-            //
+            'size' => $bool ? $this->faker->randomElement(['500mL', '1L', '1.5L']) : null,
+            'color' => $bool ? null : $this->faker->randomElement(['S', 'M', 'L', 'XL']),
         ];
     }
 }
