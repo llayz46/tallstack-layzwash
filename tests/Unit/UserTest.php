@@ -52,3 +52,12 @@ it('can delete an user', function () {
 
     expect(User::find($user->id))->toBeNull();
 });
+
+it('can get the full name', function () {
+    $user = User::factory()->create([
+        'first_name' => 'John',
+        'last_name' => 'Doe',
+    ]);
+
+    expect($user->getFullName())->toBe('John Doe');
+});
