@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LogoutController;
+use App\Livewire\Account;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Home;
@@ -14,3 +15,5 @@ Route::middleware(['guest'])->name('auth.')->group(function () {
 });
 
 Route::delete('/logout', LogoutController::class)->middleware('auth')->name('auth.logout');
+
+Route::get('/account', Account::class)->middleware('auth')->name('account');

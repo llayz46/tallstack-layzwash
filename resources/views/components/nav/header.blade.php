@@ -283,6 +283,7 @@
     </div>
 
     <header class="relative bg-white">
+{{--        TODO: dans le back gerer ces messages --}}
         <p class="flex h-10 items-center justify-center bg-primary-400 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">Get free delivery on orders over $50</p>
 
         <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -331,7 +332,11 @@
                                     <div class="block flex-shrink-0 cursor-pointer">
                                         <div class="flex items-center">
                                             <button @click="userMenu = ! userMenu" class="group">
-                                                <img class="inline-block h-9 w-9 rounded-full group-focus:outline-none group-focus:ring-2 group-focus:ring-primary-600 group-focus:ring-offset-2" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                                @if(auth()->user()->avatar)
+                                                    <img class="inline-block h-9 w-9 rounded-full group-focus:outline-none group-focus:ring-2 group-focus:ring-primary-600 group-focus:ring-offset-2" src="{{ auth()->user()->avatar }}" alt="">
+                                                @else
+                                                    <img class="inline-block h-9 w-9 rounded-full group-focus:outline-none group-focus:ring-2 group-focus:ring-primary-600 group-focus:ring-offset-2" src="https://ui-avatars.com/api/?background=ebe6ef&name={{ auth()->user()->first_name }}+{{ auth()->user()->last_name }}&color=ea546c&font-size=0.5&semibold=true&format=svg" alt="">
+                                                @endif
                                             </button>
                                             <div class="ml-3">
                                                 <p class="text-sm font-medium text-gray-700">{{ auth()->user()->getFullName() }}</p>
@@ -358,7 +363,7 @@
                                          aria-labelledby="user-menu-button"
                                          tabindex="-1"
                                     >
-                                        <x-nav.header-link-usermenu href="#">Your account</x-nav.header-link-usermenu>
+                                        <x-nav.header-link-usermenu href="{{ route('account') }}">Your account</x-nav.header-link-usermenu>
                                     </div>
                                 </div>
                             @endguest
