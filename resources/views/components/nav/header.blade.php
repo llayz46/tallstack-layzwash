@@ -284,9 +284,9 @@
 
     <header class="relative bg-white">
 {{--        TODO: dans le back gerer ces messages --}}
-        <p class="flex h-10 items-center justify-center bg-primary-400 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">Get free delivery on orders over $50</p>
+        <p class="flex h-10 items-center justify-center bg-primary-400 px-4 text-sm font-medium text-white sm:px-6 lg:px-8 z-30 relative">Get free delivery on orders over $50</p>
 
-        <nav aria-label="Top" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <nav aria-label="Top" class="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="border-b border-gray-200">
                 <div class="flex h-16 items-center">
                     <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
@@ -398,7 +398,7 @@
                                      x-transition:leave-start="opacity-100"
                                      x-transition:leave-end="opacity-0"></div>
 
-                                <div class="fixed inset-0 z-10 w-screen overflow-y-auto p-4 sm:p-6 md:p-20" x-show="search" x-cloak>
+                                <div class="fixed inset-0 z-10 w-screen overflow-y-auto p-4 pt-16 sm:p-6 sm:pt-12 md:p-20" x-show="search" x-cloak>
                                     <!--
                                       Command palette, show/hide based on modal state.
 
@@ -458,7 +458,7 @@
         </nav>
     </header>
 
-    <div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" x-cloak x-show="shoppingCart">
+    <div class="relative z-50" aria-labelledby="slide-over-title" role="dialog" aria-modal="true" x-cloak x-show="shoppingCart">
         <!--
           Background backdrop, show/hide based on slide-over state.
 
@@ -578,17 +578,14 @@
                                     <p>Subtotal</p>
                                     <p>$262.00</p>
                                 </div>
+
                                 <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                                <div class="mt-6">
-                                    <a href="#" class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700">Checkout</a>
-                                </div>
+                                <x-buttons.link href="#" class="mt-6 w-full">Checkout</x-buttons.link>
+
                                 <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                                     <p>
                                         or
-                                        <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500">
-                                            Continue Shopping
-                                            <span aria-hidden="true"> &rarr;</span>
-                                        </button>
+                                        <x-buttons.text-arrow-link href="#">Continue Shopping</x-buttons.text-arrow-link>
                                     </p>
                                 </div>
                             </div>
