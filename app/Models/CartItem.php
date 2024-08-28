@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -11,7 +12,7 @@ class CartItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['quantity'];
+    protected $fillable = ['product_variant_id', 'quantity'];
 
     public function product(): HasOneThrough
     {
@@ -20,6 +21,11 @@ class CartItem extends Model
 
     public function variant(): BelongsTo
     {
-        return $this->belongsTo(ProductVariant::class);
+        return $this->belongsTo(ProductVariant::class, 'product_variant_id');
+    }
+
+    public function cart(): BelongsTo
+    {
+        return $this->belongsTo(Cart::class);
     }
 }

@@ -69,3 +69,23 @@ it('can get the role', function () {
 
     expect($user->role)->toBe('admin');
 });
+
+it('can have a cart', function () {
+    $user = User::factory()->create();
+
+    $cart = $user->cart()->create();
+
+    $cartId = $cart->id;
+
+    expect($user->cart->id)->toBe($cartId);
+});
+
+//it('can have a cart with a session id', function () {
+//    $user = User::factory()->create();
+//
+//    $cart = $user->cart()->create([
+//        'session_id' => 'session_id',
+//    ]);
+//
+//    expect($cart->session_id)->toBe('session_id');
+//});

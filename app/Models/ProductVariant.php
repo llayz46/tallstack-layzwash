@@ -10,7 +10,7 @@ class ProductVariant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['size', 'color'];
+    protected $fillable = ['capacity', 'size'];
 
     public function product(): BelongsTo
     {

@@ -17,11 +17,10 @@ class ProductVariantFactory extends Factory
      */
     public function definition(): array
     {
-        $bool = $this->faker->boolean;
-
         return [
-            'size' => $bool ? $this->faker->randomElement(['500mL', '1L', '1.5L']) : null,
-            'color' => $bool ? null : $this->faker->randomElement(['S', 'M', 'L', 'XL']),
+            'capacity' => $this->faker->randomElement(['250mL', '500mL', '1L', '1.5L', '5L']),
+//            'size' => $this->faker->randomElement(['XXS', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL']),
+            'size' => null,
         ];
     }
 }

@@ -1,11 +1,11 @@
 <main class="pt-10 sm:pt-16 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <x-nav.product-breadcrumb :$product/>
 
-    <x-product.image-gallery :images="$product->images"/>
+    <x-product.image-gallery :images="$product->images" :$product/>
 
     <div class="pt-10 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:pt-16">
         <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{ $product->name }}</h1>
+            <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{ $product->brand->name }} - {{ $product->name }}</h1>
         </div>
 
         <!-- Options -->
@@ -36,145 +36,61 @@
                         </svg>
                     </div>
                     <p class="sr-only">4 out of 5 stars</p>
-                    <a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">117 reviews</a>
+                    <a href="#" class="ml-3 text-sm font-medium text-primary-600 hover:text-primary-500">117 reviews</a>
                 </div>
             </div>
 
-            <form class="mt-10">
-                <!-- Colors -->
-                <div>
-                    <h3 class="text-sm font-medium text-gray-900">Color</h3>
-
-                    <fieldset class="mt-4">
-                        <legend class="sr-only">Choose a color</legend>
-                        <div class="flex items-center space-x-3">
-                            <!--
-                              Active and Checked: "ring ring-offset-1"
-                              Not Active and Checked: "ring-2"
-                            -->
-                            <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
-                                <input type="radio" name="color-choice" value="White" class="sr-only" aria-labelledby="color-choice-0-label">
-                                <span id="color-choice-0-label" class="sr-only">White</span>
-                                <span aria-hidden="true" class="h-8 w-8 bg-white rounded-full border border-black border-opacity-10"></span>
-                            </label>
-                            <!--
-                              Active and Checked: "ring ring-offset-1"
-                              Not Active and Checked: "ring-2"
-                            -->
-                            <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-400">
-                                <input type="radio" name="color-choice" value="Gray" class="sr-only" aria-labelledby="color-choice-1-label">
-                                <span id="color-choice-1-label" class="sr-only">Gray</span>
-                                <span aria-hidden="true" class="h-8 w-8 bg-gray-200 rounded-full border border-black border-opacity-10"></span>
-                            </label>
-                            <!--
-                              Active and Checked: "ring ring-offset-1"
-                              Not Active and Checked: "ring-2"
-                            -->
-                            <label class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none ring-gray-900">
-                                <input type="radio" name="color-choice" value="Black" class="sr-only" aria-labelledby="color-choice-2-label">
-                                <span id="color-choice-2-label" class="sr-only">Black</span>
-                                <span aria-hidden="true" class="h-8 w-8 bg-gray-900 rounded-full border border-black border-opacity-10"></span>
-                            </label>
-                        </div>
-                    </fieldset>
-                </div>
-
-                <!-- Sizes -->
-                <div class="mt-10">
+            <!-- Capacity -->
+            @if($product->variants->first()->capacity !== null)
+                <form class="mt-10" wire:submit.prevent="addToCart">
                     <div class="flex items-center justify-between">
-                        <h3 class="text-sm font-medium text-gray-900">Size</h3>
-                        <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
+                        <h3 class="text-sm font-medium text-gray-900">Capacity</h3>
                     </div>
 
-                    <fieldset class="mt-4">
+                    <fieldset class="mt-4" x-data="{ selectedVariant: null }">
+                        <legend class="sr-only">Choose a capacity</legend>
+                        <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                            @foreach($product->variants as $variant)
+                                <x-form.variant-select variant="{{ $variant->id }}">{{ $variant->capacity }}</x-form.variant-select>
+
+{{--                            Todo : systeme de quantité, si il n'y en a plus alors on ajoute disabled--}}
+{{--                                <x-form.variant-select variant="1" :disabled="true">1L</x-form.variant-select>--}}
+                            @endforeach
+                        </div>
+                        @error('variant')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </fieldset>
+
+                    <x-form.button-submit class="mt-10 py-3">Add to cart</x-form.button-submit>
+                </form>
+            @endif
+
+            <!-- Sizes -->
+            @if($product->variants->first()->size !== null)
+                <form class="mt-10" wire:submit.prevent="addToCart">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-medium text-gray-900">Size</h3>
+                    </div>
+
+                    <fieldset class="mt-4" x-data="{ selectedVariant: null }">
                         <legend class="sr-only">Choose a size</legend>
                         <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-not-allowed bg-gray-50 text-gray-200">
-                                <input type="radio" name="size-choice" value="XXS" disabled class="sr-only" aria-labelledby="size-choice-0-label">
-                                <span id="size-choice-0-label">XXS</span>
-                                <span aria-hidden="true" class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
-                    <svg class="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                      <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
-                    </svg>
-                  </span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
-                                <input type="radio" name="size-choice" value="XS" class="sr-only" aria-labelledby="size-choice-1-label">
-                                <span id="size-choice-1-label">XS</span>
-                                <!--
-                                  Active: "border", Not Active: "border-2"
-                                  Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
-                                <input type="radio" name="size-choice" value="S" class="sr-only" aria-labelledby="size-choice-2-label">
-                                <span id="size-choice-2-label">S</span>
-                                <!--
-                                  Active: "border", Not Active: "border-2"
-                                  Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
-                                <input type="radio" name="size-choice" value="M" class="sr-only" aria-labelledby="size-choice-3-label">
-                                <span id="size-choice-3-label">M</span>
-                                <!--
-                                  Active: "border", Not Active: "border-2"
-                                  Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
-                                <input type="radio" name="size-choice" value="L" class="sr-only" aria-labelledby="size-choice-4-label">
-                                <span id="size-choice-4-label">L</span>
-                                <!--
-                                  Active: "border", Not Active: "border-2"
-                                  Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
-                                <input type="radio" name="size-choice" value="XL" class="sr-only" aria-labelledby="size-choice-5-label">
-                                <span id="size-choice-5-label">XL</span>
-                                <!--
-                                  Active: "border", Not Active: "border-2"
-                                  Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
-                                <input type="radio" name="size-choice" value="2XL" class="sr-only" aria-labelledby="size-choice-6-label">
-                                <span id="size-choice-6-label">2XL</span>
-                                <!--
-                                  Active: "border", Not Active: "border-2"
-                                  Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                            <!-- Active: "ring-2 ring-indigo-500" -->
-                            <label class="group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6 cursor-pointer bg-white text-gray-900 shadow-sm">
-                                <input type="radio" name="size-choice" value="3XL" class="sr-only" aria-labelledby="size-choice-7-label">
-                                <span id="size-choice-7-label">3XL</span>
-                                <!--
-                                  Active: "border", Not Active: "border-2"
-                                  Checked: "border-indigo-500", Not Checked: "border-transparent"
-                                -->
-                                <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
-                            </label>
-                        </div>
-                    </fieldset>
-                </div>
+                            @foreach($product->variants as $variant)
+                                <x-form.variant-select variant="{{ $variant->id }}">{{ $variant->size }}</x-form.variant-select>
 
-                <button type="submit" class="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to bag</button>
-            </form>
+{{--                            Todo : systeme de quantité, si il n'y en a plus alors on ajoute disabled--}}
+{{--                                <x-form.variant-select variant="1" :disabled="true">1L</x-form.variant-select>--}}
+                            @endforeach
+                        </div>
+                        @error('variant')
+                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </fieldset>
+
+                    <x-form.button-submit class="mt-10 py-3">Add to cart</x-form.button-submit>
+                </form>
+            @endif
         </div>
 
         <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
