@@ -12,7 +12,7 @@ if($errors->has($field)) {
 @endphp
 
 <div class="relative mt-2 rounded-md shadow-sm">
-    <input {{ $attributes->merge(['class' => 'block w-full rounded-md border-0 py-1.5 ring-1 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200' . $classes]) }}
+    <input {{ $attributes->merge(['class' => 'block w-full rounded-md border-0 py-1.5 ring-1 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:ring-gray-200 transition' . $classes]) }}
            @if($errors->has($field)) aria-invalid="true" @endif>
     @if($errors->has($field))
         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">

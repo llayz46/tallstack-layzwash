@@ -15,6 +15,7 @@ class Product extends Model
         'name',
         'slug',
         'description',
+        'usage',
         'price',
         'status',
         'brand_id',
@@ -39,5 +40,15 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(ProductComment::class);
+    }
+
+    public function getFormattedPrice(): string
+    {
+        return '$'.number_format($this->price, 2, ',', ' ');
     }
 }

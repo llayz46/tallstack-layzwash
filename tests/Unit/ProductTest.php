@@ -3,6 +3,7 @@
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use Dflydev\DotAccessData\Data;
 
 it('can be instantiated', function () {
     // AAA
@@ -106,6 +107,28 @@ it('has many images', function () {
     expect($product->images)->toHaveCount(3);
 });
 
+it('has main image', function () {
+    $product = Product::factory()
+        ->hasImages(3)
+        ->create();
+
+    $product->images->first()->update([
+        'main' => 1,
+    ]);
+
+    $mainImage = $product->images->first();
+
+    expect($mainImage->main)->toBe(1);
+});
+
+it('has many comments', function () {
+    $product = Product::factory()
+        ->hasComments(3)
+        ->create();
+
+    expect($product->comments)->toHaveCount(3);
+});
+
 it('has a name', function () {
     $product = Product::factory()->create();
 
@@ -134,6 +157,20 @@ it('has a status', function () {
     $product = Product::factory()->create();
 
     expect($product->status)->toBeBool();
+});
+
+it('has a usage', function () {
+    $product = Product::factory()->create();
+
+    expect($product->usage)->toBeString();
+});
+
+it('has a formatted price', function () {
+    $product = Product::factory()->create([
+        'price' => 814.9,
+    ]);
+
+    expect($product->getFormattedPrice())->toBe('$814,90');
 });
 
 it('get deleted when brand is deleted', function () {

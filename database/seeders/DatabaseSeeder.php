@@ -16,14 +16,21 @@ class DatabaseSeeder extends Seeder
     {
         Product::factory(10)
             ->hasVariants(3)
-            ->hasImages(3)
+            ->hasImages(rand(4, 5))
+            ->hasComments(rand(3, 6))
             ->hasBrand()
             ->hasCategory()
-            ->create();
+            ->create()
+            ->each(function (Product $product) {
+                $firstImage = $product->images->first();
+
+                $firstImage->update(['main' => 1]);
+        });
 
         User::factory()->create([
             'email' => 'test@test.fr',
-            'password' => 'testtest'
+            'password' => 'testtest',
+            'role' => 'admin'
         ]);
     }
 }

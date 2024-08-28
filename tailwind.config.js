@@ -15,6 +15,9 @@ export default {
     ],
     theme: {
         extend: {
+            gridTemplateRows: {
+                '[auto,auto,1fr]': 'auto auto 1fr',
+            },
             fontFamily: {
                 sans: ['Space Grotesk', ...defaultTheme.fontFamily.sans],
             },
@@ -42,6 +45,6 @@ export default {
         require('autoprefixer'),
         require('postcss-custom-properties'),
         require('@tailwindcss/aspect-ratio'),
-        require('@tailwindcss/forms')
+        require('@tailwindcss/forms'),
     ],
 }

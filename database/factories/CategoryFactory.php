@@ -17,9 +17,28 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $name = [
+            'Prewash',
+            'Shampoo',
+            'Bug Remover',
+            'Wheel Cleaner',
+            'Tire Cleaner',
+            'Glass Cleaner',
+            'Drying Aids',
+            'Detailing Clay',
+            'Polish',
+            'Wax',
+            'Sealant',
+            'Quick Detailer',
+            'Interior Cleaner',
+            'Leather Cleaner',
+            'Fabric Cleaner',
+            'Carpet Cleaner',
+            'Coatings',
+        ];
         return [
-            'name' => $name = $this->faker->unique()->word,
-            'slug' => Str::slug($name),
+            'name' => $actualCategory = $this->faker->unique()->randomElement($name),
+            'slug' => Str::slug($actualCategory),
             'description' => $this->faker->sentence,
         ];
     }

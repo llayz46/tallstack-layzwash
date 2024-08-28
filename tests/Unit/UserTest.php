@@ -61,3 +61,11 @@ it('can get the full name', function () {
 
     expect($user->getFullName())->toBe('John Doe');
 });
+
+it('can get the role', function () {
+    $user = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    expect($user->role)->toBe('admin');
+});

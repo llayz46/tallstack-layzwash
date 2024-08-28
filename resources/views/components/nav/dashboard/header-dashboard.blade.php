@@ -7,11 +7,13 @@
                 <x-nav.dashboard.header-link :active="request()->routeIs('home')" href="{{ route('home') }}">Home</x-nav.dashboard.header-link>
             </li>
             <li>
-                <x-nav.dashboard.header-link :active="$this->isActive" href="{{ route('account') }}">Account</x-nav.dashboard.header-link>
+                <x-nav.dashboard.header-link :active="$this->isAccountActive" href="{{ route('account') }}">Account</x-nav.dashboard.header-link>
             </li>
-{{--            <li>--}}
-{{--                <x-nav.dashboard.header-link :active="$this->isActive" href="{{ route('account') }}">Account</x-nav.dashboard.header-link>--}}
-{{--            </li>--}}
+            @if(auth()->user()->isAdmin())
+                <li>
+                    <x-nav.dashboard.header-link :active="$this->isAdminActive" href="{{ route('admin') }}">Admin</x-nav.dashboard.header-link>
+                </li>
+            @endif
         </ul>
     </nav>
 </header>

@@ -43,3 +43,15 @@ it('can update images of product', function () {
 
     expect($product->images->first()->path)->toBe('images/updated-image.jpg');
 });
+
+it('can set main image of product', function () {
+    $product = Product::factory()
+        ->hasImages(3)
+        ->create();
+
+    $product->images()->first()->update([
+        'main' => true,
+    ]);
+
+    expect($product->images->first()->main)->toBe(1);
+});

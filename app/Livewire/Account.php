@@ -17,7 +17,8 @@ class Account extends Component
 {
     use WithFileUploads, WireUiActions;
 
-    public $isActive = false;
+    public $isAdminActive = false;
+    public $isAccountActive = false;
 
     public User $user;
 
@@ -32,7 +33,7 @@ class Account extends Component
         $this->user = auth()->user();
         $this->form->setUser($this->user);
 
-        $this->isActive = request()->routeIs('account');
+        $this->isAccountActive = request()->routeIs('account');
     }
 
     public function save()
@@ -101,6 +102,6 @@ class Account extends Component
         $this->user->delete();
         auth()->logout();
 
-        return redirect()->route('home');
+        return $this->redirect('/', navigate: true);
     }
 }

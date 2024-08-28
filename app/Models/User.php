@@ -22,6 +22,7 @@ class User extends Authenticatable
         'avatar',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -50,5 +51,10 @@ class User extends Authenticatable
     public function getFullName(): string
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
     }
 }

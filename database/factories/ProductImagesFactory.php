@@ -18,6 +18,7 @@ class ProductImagesFactory extends Factory
     {
         return [
             'path' => $this->faker->imageUrl(),
+            'main' => false,
         ];
     }
 }
