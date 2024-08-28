@@ -21,3 +21,27 @@ test('products can be sorts by category', function () {
 
     expect($products)->toHaveCount(3);
 });
+
+it('can have a name', function () {
+    $category = Category::factory()->create([
+        'name' => 'Test',
+    ]);
+
+    expect($category->name)->toBe('Test');
+});
+
+it('can have a description', function () {
+    $category = Category::factory()->create([
+        'description' => 'Test',
+    ]);
+
+    expect($category->description)->toBe('Test');
+});
+
+it('can have a slug', function () {
+    $category = Category::factory()->create([
+        'slug' => 'test',
+    ]);
+
+    expect($category->slug)->toBe('test');
+});

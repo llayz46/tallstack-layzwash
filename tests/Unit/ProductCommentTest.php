@@ -77,3 +77,4 @@ it('has a content', function () {
 
     expect($comment->content)->toBe('This is a content');
 });
+
