@@ -2,7 +2,12 @@
 
 namespace App\Livewire\Auth;
 
+use App\Actions\Cart\MigrateSessionCart;
+use App\Factories\CartFactory;
 use App\Livewire\Forms\LoginForm;
+use App\Models\Cart;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -22,8 +27,15 @@ class Login extends Component
     {
         $credentials = $this->validate();
 
+        $user = User::where('email', $credentials['email'])->first();
+
+        if ($user && \Hash::check($credentials['password'], $user->password)) {
+            (new MigrateSessionCart)->migrate(CartFactory::make(), $user->cart ?: $user->cart()->create());
+        }
+
         if (auth()->attempt($credentials)) {
             session()->regenerate();
+
             return redirect()->intended(route('home'));
         }
 

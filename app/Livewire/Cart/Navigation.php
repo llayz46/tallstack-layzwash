@@ -13,6 +13,6 @@ class Navigation extends Component
     #[On(['productAddedToCart', 'productRemovedFromCart'])]
     public function getCountProperty()
     {
-        return CartFactory::getInstance()->items->sum('quantity');
+        return CartFactory::make()->items()->sum('quantity');
     }
 }
