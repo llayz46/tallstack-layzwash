@@ -10,7 +10,7 @@ class Cart extends Component
 {
     public function getCartProperty()
     {
-        return CartFactory::make()->loadMissing('items', 'items.variant', 'items.product');
+        return CartFactory::make();
     }
 
     #[On('productAddedToCart')]
