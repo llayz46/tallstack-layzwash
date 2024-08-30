@@ -10,7 +10,7 @@ use Livewire\Attributes\Validate;
 use Livewire\Component;
 use WireUi\Traits\WireUiActions;
 
-#[Layout('layouts.app', ['header' => true, 'title' => 'categorie - nom produit'])]
+#[Layout('components.layouts.app', ['header' => true, 'title' => 'categorie - nom produit'])]
 
 class Show extends Component
 {

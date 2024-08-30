@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Cashier::calculateTaxes();
+
         Authenticate::redirectUsing(function ($request) {
             return route('auth.login');
         });

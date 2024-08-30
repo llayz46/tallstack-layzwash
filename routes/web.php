@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmailVerificationController;
 use App\Http\Controllers\LogoutController;
 use App\Livewire\Account;
 use App\Livewire\Admin;
@@ -16,10 +17,17 @@ Route::middleware(['guest'])->name('auth.')->group(function () {
     Route::get('/login', Login::class)->name('login');
 });
 
-Route::delete('/logout', LogoutController::class)->middleware('auth')->name('auth.logout');
+// Email verification routes
+Route::middleware('auth')->group(function () {
+    Route::get('/email/verify', [EmailVerificationController::class, 'verifyView'])->name('verification.notice'); // Email verification view page
+    Route::get('/email/verify/{id}/{hash}', [EmailVerificationController::class, 'verify'])->middleware(['signed', 'throttle:6,1'])->name('verification.verify'); // Verify email
 
-Route::get('/account', Account::class)->middleware('auth')->name('account');
+    Route::delete('/logout', LogoutController::class)->name('auth.logout');
+});
+
+
+Route::get('/account', Account::class)->middleware('verified')->name('account');
 
 Route::get('/admin', Admin::class)->middleware('admin')->name('admin');
 
-Route::get('/{slug}-{product}', Show::class)->name('product.show');
+Route::get('/{slug}-{product}', Show::class)->middleware('verified')->name('product.show');

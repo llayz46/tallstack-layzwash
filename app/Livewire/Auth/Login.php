@@ -5,13 +5,11 @@ namespace App\Livewire\Auth;
 use App\Actions\Cart\MigrateSessionCart;
 use App\Factories\CartFactory;
 use App\Livewire\Forms\LoginForm;
-use App\Models\Cart;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.app', ['header' => false, 'title' => 'Login'])]
+#[Layout('components.layouts.app', ['header' => false, 'title' => 'Login'])]
 class Login extends Component
 {
     public LoginForm $form;

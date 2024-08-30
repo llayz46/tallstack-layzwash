@@ -51,4 +51,9 @@ class Product extends Model
     {
         return '$'.number_format($this->price, 2, ',', ' ');
     }
+
+    public function getAmount(): int
+    {
+        return $this->price * 100;
+    }
 }

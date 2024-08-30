@@ -5,7 +5,7 @@ namespace App\Livewire;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
-#[Layout('layouts.app', ['header' => false, 'title' => 'Admin panel'])]
+#[Layout('components.layouts.app', ['header' => false, 'title' => 'Admin panel'])]
 class Admin extends Component
 {
     public $isAdminActive = false;

@@ -12,7 +12,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use WireUi\Traits\WireUiActions;
 
-#[Layout('layouts.app', ['header' => false, 'title' => 'Your account'])]
+#[Layout('components.layouts.app', ['header' => false, 'title' => 'Your account'])]
 class Account extends Component
 {
     use WithFileUploads, WireUiActions;
@@ -58,7 +58,7 @@ class Account extends Component
 
         if ($this->user->email !== $data['email']) {
             $this->user->email_verified_at = null;
-//            $this->user->sendEmailVerificationNotification();
+            $this->user->sendEmailVerificationNotification();
         }
 
         $this->user->update($data);

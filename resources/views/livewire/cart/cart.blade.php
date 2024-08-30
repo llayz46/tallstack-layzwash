@@ -109,7 +109,11 @@
                             </div>
 
                             <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                            <x-buttons.link href="#" class="mt-6 w-full">Checkout</x-buttons.link>
+                            @auth
+                                <x-buttons.link wire:click="checkout" class="mt-6 w-full cursor-pointer">Checkout</x-buttons.link>
+                            @else
+                                <x-buttons.link href="{{ route('auth.login') }}" class="mt-6 w-full">Login</x-buttons.link>
+                            @endauth
 
                             <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
                                 <p>

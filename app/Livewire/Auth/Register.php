@@ -6,8 +6,9 @@ use App\Livewire\Forms\RegisterForm;
 use App\Models\User;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use Illuminate\Auth\Events\Registered;
 
-#[Layout('layouts.app', ['header' => false, 'title' => 'Register'])]
+#[Layout('components.layouts.app', ['header' => false, 'title' => 'Register'])]
 class Register extends Component
 {
     public RegisterForm $form;
@@ -27,6 +28,8 @@ class Register extends Component
 
         auth()->login($user);
 
-        return redirect()->route('home');
+        event(new Registered($user));
+
+        return redirect()->route('verification.notice');
     }
 }
