@@ -55,3 +55,11 @@ it('can set main image of product', function () {
 
     expect($product->images->first()->main)->toBe(1);
 });
+
+it('belongs to a product', function () {
+    $product = Product::factory()
+        ->hasImages(3)
+        ->create();
+
+    expect($product->images->first()->product->id)->toBe($product->id);
+});

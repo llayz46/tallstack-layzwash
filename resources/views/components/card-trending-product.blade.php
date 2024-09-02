@@ -4,7 +4,7 @@
              alt="Hand stitched, orange leather long wallet." class="h-full w-full object-cover object-center">
     </div>
     <h3 class="mt-4 text-sm text-gray-700">
-        <a href="{{ route('product.show', ['slug' => 'reerzerzzer', 'product' => 3]) }}" wire:navigate>
+        <a href="{{ route('product.show', ['product' => 'm7']) }}" wire:navigate>
             <span class="absolute inset-0"></span>
             Leather Long Wallet
         </a>

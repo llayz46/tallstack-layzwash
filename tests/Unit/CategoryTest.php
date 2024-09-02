@@ -45,3 +45,21 @@ it('can have a slug', function () {
 
     expect($category->slug)->toBe('test');
 });
+
+it('belongs to an parent category', function () {
+    $parent = Category::factory()->create();
+    $category = Category::factory()->create([
+        'parent_id' => $parent->id,
+    ]);
+
+    expect($category->parent->id)->toBe($parent->id);
+});
+
+it('can have children categories', function () {
+    $parent = Category::factory()->create();
+    $category = Category::factory()->hasChildren(3)->create([
+        'parent_id' => $parent->id,
+    ]);
+
+    expect($category->children)->toHaveCount(3);
+});

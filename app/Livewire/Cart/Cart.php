@@ -9,14 +9,14 @@ use Livewire\Component;
 
 class Cart extends Component
 {
-    public function checkout(CreateStripeCheckoutSession $createStripeCheckoutSession)
-    {
-        return $createStripeCheckoutSession->createFromCart($this->cart);
-    }
-
     public function getCartProperty()
     {
         return CartFactory::make();
+    }
+
+    public function checkout(CreateStripeCheckoutSession $createStripeCheckoutSession)
+    {
+        return $createStripeCheckoutSession->createFromCart($this->cart);
     }
 
     #[On('productAddedToCart')]

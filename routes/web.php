@@ -7,6 +7,7 @@ use App\Livewire\Admin;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Home;
+use App\Livewire\Product\Products;
 use App\Livewire\Product\Show;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/logout', LogoutController::class)->name('auth.logout');
 });
 
-
 Route::get('/account', Account::class)->middleware('verified')->name('account');
 
 Route::get('/admin', Admin::class)->middleware('admin')->name('admin');
 
-Route::get('/{slug}-{product}', Show::class)->middleware('verified')->name('product.show');
+Route::name('product.')->group(function () {
+    Route::get('/products/{category:slug}', Products::class)->name('index');
+    Route::get('/{product:slug}', Show::class)->name('show');
+});

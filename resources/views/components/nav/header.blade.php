@@ -1,3 +1,4 @@
+@php use App\Models\Category; @endphp
 <div class="bg-background" x-data="{ mobileMenu: false, shoppingCart: false }" x-cloak>
     <!--
       Mobile menu
@@ -310,11 +311,44 @@
                     <!-- Flyout menus -->
                     <div class="hidden lg:ml-8 lg:block lg:self-stretch">
                         <div class="flex h-full space-x-8">
-                            <x-nav.header-link-menu menu="flyoutMenuWomen">Women</x-nav.header-link-menu>
-                            <x-nav.header-link-menu menu="flyoutMenuMen">Men</x-nav.header-link-menu>
-
-                            <a href="#" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">Company</a>
-                            <a href="#" class="flex items-center text-sm font-medium text-gray-700 hover:text-gray-800">Stores</a>
+                            <x-nav.header-link-menu menu="flyoutMenuExt">
+                                Exterior
+                                <x-slot:links>
+                                    @foreach(Category::where('type', 'exterior')->whereNull('parent_id')->with(['children' => function($query) {
+                                        $query->select('id', 'name', 'slug', 'parent_id');
+                                    }])->get(['id', 'name', 'slug']) as $category)
+                                        <x-nav.header-links-group>
+                                            {{ $category->name }}
+                                            <x-slot:content>
+                                                @foreach($category->children as $childCategory)
+                                                    <li class="flex">
+                                                        <a href="{{ route('product.index', $childCategory->slug) }}" class="hover:text-gray-800">{{ $childCategory->name }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </x-slot:content>
+                                        </x-nav.header-links-group>
+                                    @endforeach
+                                </x-slot:links>
+                            </x-nav.header-link-menu>
+                            <x-nav.header-link-menu menu="flyoutMenuInt">
+                                Interior
+                                <x-slot:links>
+                                    @foreach(Category::where('type', 'interior')->whereNull('parent_id')->with(['children' => function($query) {
+                                        $query->select('id', 'name', 'slug', 'parent_id');
+                                    }])->get(['id', 'name', 'slug']) as $category)
+                                        <x-nav.header-links-group>
+                                            {{ $category->name }}
+                                            <x-slot:content>
+                                                @foreach($category->children as $childCategory)
+                                                    <li class="flex">
+                                                        <a href="{{ route('product.index', $childCategory->slug) }}" class="hover:text-gray-800">{{ $childCategory->name }}</a>
+                                                    </li>
+                                                @endforeach
+                                            </x-slot:content>
+                                        </x-nav.header-links-group>
+                                    @endforeach
+                                </x-slot:links>
+                            </x-nav.header-link-menu>
                         </div>
                     </div>
 
@@ -370,77 +404,7 @@
                         </div>
 
                         <!-- Search -->
-                        <div class="flex lg:ml-6" x-data="{ search: false }">
-                            <button @click="search = true" class="p-2 text-gray-400 hover:text-gray-500">
-                                <span class="sr-only">Search</span>
-                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                                </svg>
-                            </button>
-
-                            <div class="relative z-10" role="dialog" aria-modal="true">
-                                <!--
-                                  Background backdrop, show/hide based on modal state.
-
-                                  Entering: "ease-out duration-300"
-                                    From: "opacity-0"
-                                    To: "opacity-100"
-                                  Leaving: "ease-in duration-200"
-                                    From: "opacity-100"
-                                    To: "opacity-0"
-                                -->
-                                <div class="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity"
-                                     x-show="search" x-cloak
-                                     x-transition:enter="ease-out duration-300"
-                                     x-transition:enter-start="opacity-0"
-                                     x-transition:enter-end="opacity-100"
-                                     x-transition:leave="ease-in duration-200"
-                                     x-transition:leave-start="opacity-100"
-                                     x-transition:leave-end="opacity-0"></div>
-
-                                <div class="fixed inset-0 z-10 w-screen overflow-y-auto p-4 pt-16 sm:p-6 sm:pt-12 md:p-20" x-show="search" x-cloak>
-                                    <!--
-                                      Command palette, show/hide based on modal state.
-
-                                      Entering: "ease-out duration-300"
-                                        From: "opacity-0 scale-95"
-                                        To: "opacity-100 scale-100"
-                                      Leaving: "ease-in duration-200"
-                                        From: "opacity-100 scale-100"
-                                        To: "opacity-0 scale-95"
-                                    -->
-                                    <div class="mx-auto max-w-xl transform divide-y divide-gray-100 overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black ring-opacity-5 transition-all"
-                                         @click.outside="search = false"
-                                         @keydown.escape.window="search = false"
-                                         x-transition:enter="ease-out duration-300"
-                                         x-transition:enter-start="opacity-0 scale-95"
-                                         x-transition:enter-end="opacity-100 scale-100"
-                                         x-transition:leave="ease-in duration-200"
-                                         x-transition:leave-start="opacity-100 scale-100"
-                                         x-transition:leave-end="opacity-0 scale-95">
-                                        <div class="relative">
-                                            <svg class="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                                <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
-                                            </svg>
-                                            <input type="text" class="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm" placeholder="Search..." role="combobox" aria-expanded="false" aria-controls="options">
-                                        </div>
-
-                                        <!-- Results, show/hide based on command palette state -->
-                                        <ul class="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800" id="options" role="listbox">
-                                            <!-- Active: "bg-indigo-600 text-white" -->
-                                            <li class="cursor-default select-none px-4 py-2" id="option-1" role="option" tabindex="-1">Leslie Alexander</li>
-                                            <li class="cursor-default select-none px-4 py-2" id="option-2" role="option" tabindex="-1">Michael Foster</li>
-                                            <li class="cursor-default select-none px-4 py-2" id="option-3" role="option" tabindex="-1">Dries Vincent</li>
-                                            <li class="cursor-default select-none px-4 py-2" id="option-4" role="option" tabindex="-1">Lindsay Walton</li>
-                                            <li class="cursor-default select-none px-4 py-2" id="option-5" role="option" tabindex="-1">Courtney Henry</li>
-                                        </ul>
-
-                                        <!-- Empty state, show/hide based on command palette state -->
-                                        <p class="p-4 text-sm text-gray-500">No people found.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <livewire:product.search/>
 
                         <!-- Cart -->
                         <livewire:cart.navigation/>

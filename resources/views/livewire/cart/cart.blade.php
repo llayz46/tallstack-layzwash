@@ -40,63 +40,71 @@
                             <div class="mt-8">
                                 <div class="flow-root">
                                     <ul role="list" class="-my-6 divide-y divide-gray-200">
-                                        @foreach($this->items as $item)
-                                            <li class="flex py-6" wire:key="{{ $item->id }}">
-                                                <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                    <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
-                                                </div>
-
-                                                <div class="ml-4 flex flex-1 flex-col">
-                                                    <div>
-                                                        <div class="flex justify-between text-base font-medium text-gray-900">
-                                                            <h3>
-                                                                <span>
-{{--                                                                    TODO : lien vers la marque et le produit--}}
-                                                                    <a href="#" class="hover:text-primary-500">
-                                                                        {{ $item->product->brand->name }}
-                                                                    </a>
-                                                                    -
-                                                                    <a href="#" class="hover:text-primary-500">
-                                                                        {{ $item->product->name }}
-                                                                    </a>
-                                                                </span>
-                                                            </h3>
-                                                            <p class="ml-4">${{ $item->product->price * $item->quantity }}</p>
-                                                        </div>
-                                                        @if($item->variant->capacity)
-                                                            <p class="mt-1 text-sm text-gray-500">{{ $item->variant->capacity }}</p>
-                                                        @else
-                                                            <p class="mt-1 text-sm text-gray-500">{{ $item->variant->size }}</p>
-                                                        @endif
-                                                    </div>
-                                                    <div class="flex flex-1 items-end justify-between text-sm">
-                                                        <div class="flex items-center text-gray-500">
-                                                            <p>
-                                                                Qty
-                                                            </p>
-
-                                                            <button wire:click="decrement({{ $item->id }})" @disabled($item->quantity === 1) class="ml-2 mr-1 rounded hover:bg-gray-200 hover:text-gray-700">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                                                                </svg>
-                                                            </button>
-
-                                                            {{ $item->quantity }}
-
-                                                            <button wire:click="increment({{ $item->id }})" class="ml-1 rounded hover:bg-gray-200 hover:text-gray-700">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                                </svg>
-                                                            </button>
-                                                        </div>
-
-                                                        <div class="flex">
-                                                            <button type="button" class="font-medium text-primary-600 hover:text-primary-500" wire:click="delete({{ $item->id }})">Remove</button>
-                                                        </div>
-                                                    </div>
+                                        @if($this->items->isEmpty())
+                                            <li class="flex py-6">
+                                                <div class="flex-1 flex items-center justify-center">
+                                                    <p class="text-sm font-medium text-gray-500">Your cart is empty</p>
                                                 </div>
                                             </li>
-                                        @endforeach
+                                        @else
+                                            @foreach($this->items as $item)
+                                                <li class="flex py-6" wire:key="{{ $item->id }}">
+                                                    <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                                                        <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
+                                                    </div>
+
+                                                    <div class="ml-4 flex flex-1 flex-col">
+                                                        <div>
+                                                            <div class="flex justify-between text-base font-medium text-gray-900">
+                                                                <h3>
+                                                                    <span>
+    {{--                                                                    TODO : lien vers la marque et le produit--}}
+                                                                        <a href="#" class="hover:text-primary-500">
+                                                                            {{ $item->product->brand->name }}
+                                                                        </a>
+                                                                        -
+                                                                        <a href="#" class="hover:text-primary-500">
+                                                                            {{ $item->product->name }}
+                                                                        </a>
+                                                                    </span>
+                                                                </h3>
+                                                                <p class="ml-4">${{ $item->product->price * $item->quantity }}</p>
+                                                            </div>
+                                                            @if($item->variant->capacity)
+                                                                <p class="mt-1 text-sm text-gray-500">{{ $item->variant->capacity }}</p>
+                                                            @else
+                                                                <p class="mt-1 text-sm text-gray-500">{{ $item->variant->size }}</p>
+                                                            @endif
+                                                        </div>
+                                                        <div class="flex flex-1 items-end justify-between text-sm">
+                                                            <div class="flex items-center text-gray-500">
+                                                                <p>
+                                                                    Qty
+                                                                </p>
+
+                                                                <button wire:click="decrement({{ $item->id }})" @disabled($item->quantity === 1) class="ml-2 mr-1 rounded hover:bg-gray-200 hover:text-gray-700">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                                                    </svg>
+                                                                </button>
+
+                                                                {{ $item->quantity }}
+
+                                                                <button wire:click="increment({{ $item->id }})" class="ml-1 rounded hover:bg-gray-200 hover:text-gray-700">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                                    </svg>
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="flex">
+                                                                <button type="button" class="font-medium text-primary-600 hover:text-primary-500" wire:click="delete({{ $item->id }})">Remove</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        @endif
                                     </ul>
                                 </div>
                             </div>

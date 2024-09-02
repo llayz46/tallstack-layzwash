@@ -56,4 +56,18 @@ class Product extends Model
     {
         return $this->price * 100;
     }
+
+    public static function search(string $query)
+    {
+        if (strlen($query) < 2) {
+            return collect();
+        }
+
+        return self::where('products.name', 'like', '%' . $query . '%')
+            ->orWhereHas('brand', function ($q) use ($query) {
+                $q->where('name', 'like', '%' . $query . '%');
+            })
+            ->with('brand')
+            ->get();
+    }
 }

@@ -93,7 +93,7 @@ it('logs in the user and redirects to home', function () {
         ->set('form.password', 'password')
         ->set('form.password_confirmation', 'password')
         ->call('register')
-        ->assertRedirect(route('home'));
+        ->assertRedirect(route('verification.notice'));
 
     $this->assertAuthenticated();
 });

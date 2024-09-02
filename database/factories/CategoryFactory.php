@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -17,29 +18,11 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        $name = [
-            'Prewash',
-            'Shampoo',
-            'Bug Remover',
-            'Wheel Cleaner',
-            'Tire Cleaner',
-            'Glass Cleaner',
-            'Drying Aids',
-            'Detailing Clay',
-            'Polish',
-            'Wax',
-            'Sealant',
-            'Quick Detailer',
-            'Interior Cleaner',
-            'Leather Cleaner',
-            'Fabric Cleaner',
-            'Carpet Cleaner',
-            'Coatings',
-        ];
         return [
-            'name' => $actualCategory = $this->faker->unique()->randomElement($name),
-            'slug' => Str::slug($actualCategory),
+            'name' => $name = $this->faker->unique()->word,
+            'slug' => Str::slug($name),
             'description' => $this->faker->sentence,
+            'type' => $this->faker->randomElement(['exterior', 'interior']),
         ];
     }
 }

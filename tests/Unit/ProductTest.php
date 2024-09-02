@@ -192,3 +192,38 @@ it('get deleted when category is deleted', function () {
 
     expect(Product::all())->toHaveCount(0);
 });
+
+it('can be searched by name', function () {
+    $product = Product::factory()->create([
+        'name' => 'Product 1',
+    ]);
+
+    $found = Product::search('Product 1');
+
+    expect($found)->toHaveCount(1)
+    ->and($found->first()->id)->toBe($product->id);
+});
+
+it('can be searched by brand name', function () {
+    $brand = Brand::factory()->create([
+        'name' => 'Brand 1',
+    ]);
+
+    $product = Product::factory()->create([
+        'name' => 'Product 1',
+        'brand_id' => $brand->id,
+    ]);
+
+    $found = Product::search('Brand 1');
+
+    expect($found)->toHaveCount(1)
+    ->and($found->first()->id)->toBe($product->id);
+});
+
+it('can get amount', function () {
+    $product = Product::factory()->create([
+        'price' => 814.9,
+    ]);
+
+    expect($product->getAmount())->toBe(81490);
+});
