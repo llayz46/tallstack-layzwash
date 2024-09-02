@@ -231,40 +231,11 @@
     </div>
 
     <main class="mx-auto max-w-2xl px-4 lg:max-w-7xl lg:px-8">
-        <nav aria-label="Breadcrumb" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 border-b border-gray-200">
-            <ol role="list" class="flex items-center space-x-4 py-4">
-                <li>
-                    <div class="flex items-center">
-                        <a href="{{ route('home') }}" class="text-gray-400 hover:text-gray-500 mr-4" wire:navigate>
-                            <svg class="h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z" clip-rule="evenodd" />
-                            </svg>
-                            <span class="sr-only">Home</span>
-                        </a>
-                        <svg viewBox="0 0 6 20" aria-hidden="true" class="h-5 w-auto text-gray-300">
-                            <path d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z" fill="currentColor"/>
-                        </svg>
-                    </div>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                        <a href="#" class="mr-4 text-sm font-medium text-gray-500 hover:text-gray-600">{{ $category->name }}</a>
-                        <svg viewBox="0 0 6 20" aria-hidden="true" class="h-5 w-auto text-gray-300">
-                            <path d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z" fill="currentColor"/>
-                        </svg>
-                    </div>
-                </li>
-
-                <li class="text-sm">
-                    <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600">if on filtre avec brand (carpro)</a>
-                </li>
-            </ol>
-        </nav>
+        <x-nav.products-breadcrumb :$category/>
 
         <div class="border-b border-gray-200 pb-10 pt-24">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
-            <p class="mt-4 text-base text-gray-500">Checkout out the latest release of Basic Tees, new and improved with
-                four openings!</p>
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900">{{ $category->name }}</h1>
+            <p class="mt-4 text-base text-gray-500">{{ $category->description }}</p>
         </div>
 
         <div class="pb-24 pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
@@ -285,72 +256,13 @@
                     <form class="space-y-10 divide-y divide-gray-200">
                         <div>
                             <fieldset>
-                                <legend class="block text-sm font-medium text-gray-900">Color</legend>
+                                <legend class="block text-sm font-medium text-gray-900">Capacity</legend>
                                 <div class="space-y-3 pt-6">
-                                    <div class="flex items-center">
-                                        <input id="color-0" name="color[]" value="white" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="color-0" class="ml-3 text-sm text-gray-600">White</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="color-1" name="color[]" value="beige" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="color-1" class="ml-3 text-sm text-gray-600">Beige</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="color-2" name="color[]" value="blue" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="color-2" class="ml-3 text-sm text-gray-600">Blue</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="color-3" name="color[]" value="brown" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="color-3" class="ml-3 text-sm text-gray-600">Brown</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="color-4" name="color[]" value="green" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="color-4" class="ml-3 text-sm text-gray-600">Green</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="color-5" name="color[]" value="purple" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="color-5" class="ml-3 text-sm text-gray-600">Purple</label>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>
-                        <div class="pt-10">
-                            <fieldset>
-                                <legend class="block text-sm font-medium text-gray-900">Category</legend>
-                                <div class="space-y-3 pt-6">
-                                    <div class="flex items-center">
-                                        <input id="category-0" name="category[]" value="new-arrivals" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="category-0" class="ml-3 text-sm text-gray-600">All New
-                                            Arrivals</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="category-1" name="category[]" value="tees" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="category-1" class="ml-3 text-sm text-gray-600">Tees</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="category-2" name="category[]" value="crewnecks" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="category-2" class="ml-3 text-sm text-gray-600">Crewnecks</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="category-3" name="category[]" value="sweatshirts" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="category-3" class="ml-3 text-sm text-gray-600">Sweatshirts</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="category-4" name="category[]" value="pants-shorts" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="category-4" class="ml-3 text-sm text-gray-600">Pants &amp;
-                                            Shorts</label>
-                                    </div>
+                                    <x-form.input-variant name="size-250" value="250">250 ml</x-form.input-variant>
+                                    <x-form.input-variant name="size-500" value="500">500 ml</x-form.input-variant>
+                                    <x-form.input-variant name="size-1" value="1">1 L</x-form.input-variant>
+                                    <x-form.input-variant name="size-1.5" value="1.5">1.5 L</x-form.input-variant>
+                                    <x-form.input-variant name="size-5" value="5">5 L</x-form.input-variant>
                                 </div>
                             </fieldset>
                         </div>
@@ -358,36 +270,14 @@
                             <fieldset>
                                 <legend class="block text-sm font-medium text-gray-900">Sizes</legend>
                                 <div class="space-y-3 pt-6">
-                                    <div class="flex items-center">
-                                        <input id="sizes-0" name="sizes[]" value="xs" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="sizes-0" class="ml-3 text-sm text-gray-600">XS</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="sizes-1" name="sizes[]" value="s" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="sizes-1" class="ml-3 text-sm text-gray-600">S</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="sizes-2" name="sizes[]" value="m" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="sizes-2" class="ml-3 text-sm text-gray-600">M</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="sizes-3" name="sizes[]" value="l" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="sizes-3" class="ml-3 text-sm text-gray-600">L</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="sizes-4" name="sizes[]" value="xl" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="sizes-4" class="ml-3 text-sm text-gray-600">XL</label>
-                                    </div>
-                                    <div class="flex items-center">
-                                        <input id="sizes-5" name="sizes[]" value="2xl" type="checkbox"
-                                               class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">
-                                        <label for="sizes-5" class="ml-3 text-sm text-gray-600">2XL</label>
-                                    </div>
+                                    <x-form.input-variant name="size-xxs" value="xxs">XXS</x-form.input-variant>
+                                    <x-form.input-variant name="size-xs" value="xs">XS</x-form.input-variant>
+                                    <x-form.input-variant name="size-s" value="s">S</x-form.input-variant>
+                                    <x-form.input-variant name="size-m" value="m">M</x-form.input-variant>
+                                    <x-form.input-variant name="size-l" value="l">L</x-form.input-variant>
+                                    <x-form.input-variant name="size-xl" value="xl">XL</x-form.input-variant>
+                                    <x-form.input-variant name="size-2xl" value="2xl">2XL</x-form.input-variant>
+                                    <x-form.input-variant name="size-3xl" value="3xl">3XL</x-form.input-variant>
                                 </div>
                             </fieldset>
                         </div>
