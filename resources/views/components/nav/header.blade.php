@@ -1,10 +1,6 @@
 @php use App\Models\Category; @endphp
 <div class="bg-background" x-data="{ mobileMenu: false, shoppingCart: false }" x-cloak>
-    <!--
-      Mobile menu
 
-      Off-canvas menu for mobile, show/hide based on off-canvas menu state.
-    -->
     <div class="relative z-40 lg:hidden"
          role="dialog" aria-modal="true"
          x-show="mobileMenu">
@@ -29,16 +25,6 @@
              x-transition:leave-end="opacity-0"></div>
 
         <div class="fixed inset-0 z-40 flex">
-            <!--
-              Off-canvas menu, show/hide based on off-canvas menu state.
-
-              Entering: "transition ease-in-out duration-300 transform"
-                From: "-translate-x-full"
-                To: "translate-x-0"
-              Leaving: "transition ease-in-out duration-300 transform"
-                From: "translate-x-0"
-                To: "-translate-x-full"
-            -->
             <div class="relative flex w-full max-w-xs flex-col overflow-y-auto bg-white pb-12 shadow-xl"
                  x-show="mobileMenu" x-cloak @click.outside="mobileMenu = false" @close.stop="mobileMenu = false"
                  x-transition:enter="transition ease-in-out duration-300 transform"

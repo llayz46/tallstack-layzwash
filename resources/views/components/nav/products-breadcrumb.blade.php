@@ -3,7 +3,7 @@
     'category'
 ])
 
-<nav aria-label="Breadcrumb" {{ $attributes->class(['mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 border-b border-gray-200']) }}>
+<nav aria-label="Breadcrumb">
     <ol role="list" class="flex items-center space-x-4 py-4">
         <li>
             <div class="flex items-center">

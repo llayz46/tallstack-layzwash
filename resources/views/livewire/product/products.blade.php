@@ -1,38 +1,29 @@
-<div>
-    <!--
-      Mobile filter dialog
+<div x-data="{ mobileFilterDialogOpen: false }">
 
-      Off-canvas menu for mobile, show/hide based on off-canvas menu state.
-    -->
-    <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true">
-        <!--
-          Off-canvas menu backdrop, show/hide based on off-canvas menu state.
+    <div class="relative z-40 lg:hidden" role="dialog" aria-modal="true" x-show="mobileFilterDialogOpen">
 
-          Entering: "transition-opacity ease-linear duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-          Leaving: "transition-opacity ease-linear duration-300"
-            From: "opacity-100"
-            To: "opacity-0"
-        -->
-        <div class="fixed inset-0 bg-black bg-opacity-25"></div>
+        <div class="fixed inset-0 bg-black bg-opacity-25"
+             x-show="mobileFilterDialogOpen" x-cloak
+             x-transition:enter="transition-opacity ease-linear duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity ease-linear duration-300"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"></div>
 
         <div class="fixed inset-0 z-40 flex">
-            <!--
-              Off-canvas menu, show/hide based on off-canvas menu state.
 
-              Entering: "transition ease-in-out duration-300 transform"
-                From: "translate-x-full"
-                To: "translate-x-0"
-              Leaving: "transition ease-in-out duration-300 transform"
-                From: "translate-x-0"
-                To: "translate-x-full"
-            -->
-            <div
-                class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl">
+            <div class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl"
+                 x-show="mobileFilterDialogOpen" x-cloak
+                 x-transition:enter="transition ease-in-out duration-300 transform"
+                 x-transition:enter-start="translate-x-full"
+                 x-transition:enter-end="translate-x-0"
+                 x-transition:leave="transition ease-in-out duration-300 transform"
+                 x-transition:leave-start="translate-x-0"
+                 x-transition:leave-end="translate-x-full">
                 <div class="flex items-center justify-between px-4">
                     <h2 class="text-lg font-medium text-gray-900">Filters</h2>
-                    <button type="button"
+                    <button type="button" @click="mobileFilterDialogOpen = false"
                             class="relative -mr-2 flex h-10 w-10 items-center justify-center p-2 text-gray-400 hover:text-gray-500">
                         <span class="absolute -inset-0.5"></span>
                         <span class="sr-only">Close menu</span>
@@ -243,7 +234,7 @@
                 <h2 class="sr-only">Filters</h2>
 
                 <!-- Mobile filter dialog toggle, controls the 'mobileFilterDialogOpen' state. -->
-                <button type="button" class="inline-flex items-center lg:hidden">
+                <button type="button" class="inline-flex items-center lg:hidden" @click="mobileFilterDialogOpen = true">
                     <span class="text-sm font-medium text-gray-700">Filters</span>
                     <svg class="ml-1 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
                          aria-hidden="true">
