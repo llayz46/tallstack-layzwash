@@ -51,10 +51,11 @@
                         <legend class="sr-only">Choose a capacity</legend>
                         <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
                             @foreach($product->variants as $variant)
-                                <x-form.variant-select variant="{{ $variant->id }}">{{ $variant->capacity }}</x-form.variant-select>
-
-{{--                            Todo : systeme de quantité, si il n'y en a plus alors on ajoute disabled--}}
-{{--                                <x-form.variant-select variant="1" :disabled="true">1L</x-form.variant-select>--}}
+                                <x-form.variant-select
+                                    variant="{{ $variant->id }}"
+                                    :disabled="$variant->stock === 0">
+                                    {{ $variant->capacity }}
+                                </x-form.variant-select>
                             @endforeach
                         </div>
                         @error('variant')
@@ -238,13 +239,13 @@
     <div class="py-16 sm:py-24">
         <div class="flex items-center justify-between space-x-4">
             <h2 class="text-xl font-bold text-gray-900">Similar products</h2>
-            <x-buttons.text-arrow-link href="#">View all</x-buttons.text-arrow-link>
+{{--            TODO: faire une page de tout les articles similaire ou alors supprimer--}}
+{{--            <x-buttons.text-arrow-link href="#">View all</x-buttons.text-arrow-link>--}}
         </div>
         <div class="mt-6 grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
-            <x-product.card-similar-product/>
-            <x-product.card-similar-product/>
-            <x-product.card-similar-product/>
-            <x-product.card-similar-product/>
+            @foreach($similarProducts as $product)
+                <x-product.card-similar-product :product="$product"/>
+            @endforeach
         </div>
     </div>
 </main>

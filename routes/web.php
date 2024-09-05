@@ -31,6 +31,6 @@ Route::get('/account', Account::class)->middleware('verified')->name('account');
 Route::get('/admin', Admin::class)->middleware('admin')->name('admin');
 
 Route::name('product.')->group(function () {
-    Route::get('/products/{category:slug}', Products::class)->name('index');
+    Route::get('/products/{slug}', Products::class)->name('index');
     Route::get('/{product:slug}', Show::class)->name('show');
 });

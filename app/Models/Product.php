@@ -47,6 +47,11 @@ class Product extends Model
         return $this->hasMany(ProductComment::class);
     }
 
+    public function sales(): HasMany
+    {
+        return $this->hasMany(ProductSales::class);
+    }
+
     public function getFormattedPrice(): string
     {
         return '$'.number_format($this->price, 2, ',', ' ');
@@ -55,6 +60,11 @@ class Product extends Model
     public function getAmount(): int
     {
         return $this->price * 100;
+    }
+
+    public function mainImage(): ProductImages
+    {
+        return $this->images->where('main', true)->first();
     }
 
     public static function search(string $query)
@@ -69,5 +79,47 @@ class Product extends Model
             })
             ->with('brand')
             ->get();
+    }
+
+    public function getSimilarProducts(Product $product, string $priority = 'brand')
+    {
+        $fetchedProductIds = [$product->id];
+        $maxIterations = 2;
+
+        $this->similarProducts = Product::where(function ($query) use ($product, $priority) {
+            if ($priority === 'brand') {
+                $query->where('brand_id', $product->brand_id);
+            } else {
+                $query->where('category_id', $product->category_id);
+            }
+        })
+            ->whereNotIn('id', $fetchedProductIds)
+            ->inRandomOrder()
+            ->limit(2)
+            ->get();
+
+        $fetchedProductIds = $this->similarProducts->pluck('id')->toArray();
+
+        while (count($this->similarProducts) < 4 && $maxIterations > 0) {
+            $additionalProducts = Product::where(function ($query) use ($product, $priority) {
+                if ($priority === 'brand') {
+                    $query->where('category_id', $product->category_id);
+                } else {
+                    $query->where('brand_id', $product->brand_id);
+                }
+            })
+                ->whereNotIn('id', $fetchedProductIds)
+                ->inRandomOrder()
+                ->limit(2)
+                ->get();
+
+            $this->similarProducts = $this->similarProducts->concat($additionalProducts);
+            $fetchedProductIds = array_merge($fetchedProductIds, $additionalProducts->pluck('id')->toArray());
+
+            $priority = $priority === 'brand' ? 'category' : 'brand'; // Alterner la priorité à chaque itération
+            $maxIterations--;
+        }
+
+        return $this->similarProducts;
     }
 }

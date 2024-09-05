@@ -52,6 +52,8 @@ class Account extends Component
             }
 
             $data['avatar'] = $avatarPath;
+
+            $this->reset('form.avatar');
         } else {
             $data['avatar'] = $this->user->avatar;
         }

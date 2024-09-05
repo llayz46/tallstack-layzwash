@@ -1,7 +1,4 @@
-@props([
-    /** @var \App\Models\Category */
-    'category'
-])
+@props(['item'])
 
 <nav aria-label="Breadcrumb">
     <ol role="list" class="flex items-center space-x-4 py-4">
@@ -22,16 +19,8 @@
         </li>
         <li>
             <div class="flex items-center">
-                <a href="{{ route('product.index', $category->slug) }}" class="mr-4 text-sm font-medium text-gray-500 hover:text-gray-700">{{ $category->name }}</a>
-                <svg viewBox="0 0 6 20" aria-hidden="true" class="h-5 w-auto text-gray-300">
-                    <path d="M4.878 4.34H3.551L.27 16.532h1.327l3.281-12.19z" fill="currentColor"/>
-                </svg>
+                <p class="mr-4 text-sm font-medium text-gray-500 hover:text-gray-700 cursor-default">{{ $item->name }}</p>
             </div>
-        </li>
-
-        <li class="text-sm">
-            <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-700">if on filtre avec
-                brand (carpro)</a>
         </li>
     </ol>
 </nav>

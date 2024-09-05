@@ -13,7 +13,7 @@
     </head>
     <body class="h-full">
         @if($header)
-            <x-nav.header />
+            <livewire:header />
         @endif
 
         {{ $slot }}

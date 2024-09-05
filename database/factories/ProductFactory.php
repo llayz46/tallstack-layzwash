@@ -19,34 +19,8 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        $name = [
-            'Reset',
-            'Gentle Snow Foam',
-            'Iron X',
-            'Q2M Foam',
-            'Q2M Bathe',
-            'Q2M Bathe+',
-            'M7',
-            'S2 Foamy',
-            'DS Scale',
-            'Nano Factor',
-            'Max 2000',
-            'SF Red',
-            'Lift',
-            'Reactivation Shampoo',
-            'DHydrate',
-            'Double Twistress',
-            'Guyzm\'o XXL Evo V2',
-            'Exo v5 Hydrophobic Coating',
-            'CQuartz UK Edition 3.0',
-            'Q2 Trim',
-            'Q2 View Evo',
-        ];
-
-        $actualName = $this->faker->unique()->randomElement($name);
-
         return [
-            'name' => $actualName,
+            'name' => $actualName = $this->faker->unique()->words(2, true),
             'slug' => Str::slug($actualName),
             'description' => $this->faker->text,
             'usage' => json_encode($this->faker->words(5)),

@@ -21,6 +21,7 @@ class ProductVariantFactory extends Factory
             'capacity' => $this->faker->randomElement(['250mL', '500mL', '1L', '1.5L', '5L']),
 //            'size' => $this->faker->randomElement(['XXS', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL']),
             'size' => null,
+            'stock' => $this->faker->numberBetween(0, 100),
         ];
     }
 }

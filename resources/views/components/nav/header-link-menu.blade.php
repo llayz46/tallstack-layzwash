@@ -26,7 +26,7 @@
                                      alt="Drawstring top with elastic loop closure and textured interior padding."
                                      class="object-cover object-center">
                             </x-slot:image>
-                            article le plus vendu (data)
+                            {{ $topSellProduct }}
                         </x-nav.header-top-sell>
                         <x-nav.header-top-sell>
                             <x-slot:image>
@@ -34,7 +34,7 @@
                                      alt="Drawstring top with elastic loop closure and textured interior padding."
                                      class="object-cover object-center">
                             </x-slot:image>
-                            marque la plus vendue (data)
+                            {{ $topSellBrand }}
                         </x-nav.header-top-sell>
                     </div>
                     <div class="row-start-1 grid grid-cols-3 gap-x-8 gap-y-10 text-sm">

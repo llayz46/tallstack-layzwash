@@ -1,19 +1,9 @@
-@php use App\Models\Category; @endphp
 <div class="bg-background" x-data="{ mobileMenu: false, shoppingCart: false }" x-cloak>
 
     <div class="relative z-40 lg:hidden"
          role="dialog" aria-modal="true"
          x-show="mobileMenu">
-        <!--
-          Off-canvas menu backdrop, show/hide based on off-canvas menu state.
 
-          Entering: "transition-opacity ease-linear duration-300"
-            From: "opacity-0"
-            To: "opacity-100"
-          Leaving: "transition-opacity ease-linear duration-300"
-            From: "opacity-100"
-            To: "opacity-0"
-        -->
         <div class="fixed inset-0 bg-black bg-opacity-25"
              aria-hidden="true"
              x-show="mobileMenu" x-cloak
@@ -270,7 +260,7 @@
     </div>
 
     <header class="relative bg-white">
-{{--        TODO: dans le back gerer ces messages --}}
+        {{--        TODO: dans le back gerer ces messages --}}
         <p class="flex h-10 items-center justify-center bg-primary-400 px-4 text-sm font-medium text-white sm:px-6 lg:px-8 z-10 relative">Get free delivery on orders over $50</p>
 
         <nav aria-label="Top" class="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -300,9 +290,17 @@
                             <x-nav.header-link-menu menu="flyoutMenuExt">
                                 Exterior
                                 <x-slot:links>
-                                    @foreach(Category::where('type', 'exterior')->whereNull('parent_id')->with(['children' => function($query) {
-                                        $query->select('id', 'name', 'slug', 'parent_id');
-                                    }])->get(['id', 'name', 'slug']) as $category)
+                                    <x-slot:topSellProduct>
+                                        <a href="{{ route('product.show', $exteriorTopProduct->slug) }}" class="mt-6 block font-medium text-gray-900">
+                                            <span class="absolute inset-0 z-10" aria-hidden="true"></span>
+                                            {{ $exteriorTopProduct->name }}
+                                        </a>
+                                    </x-slot:topSellProduct>
+                                    <x-slot:topSellBrand>
+                                        ererzererz
+                                    </x-slot:topSellBrand>
+
+                                    @foreach($exteriorCategories as $category)
                                         <x-nav.header-links-group>
                                             {{ $category->name }}
                                             <x-slot:content>
@@ -319,9 +317,17 @@
                             <x-nav.header-link-menu menu="flyoutMenuInt">
                                 Interior
                                 <x-slot:links>
-                                    @foreach(Category::where('type', 'interior')->whereNull('parent_id')->with(['children' => function($query) {
-                                        $query->select('id', 'name', 'slug', 'parent_id');
-                                    }])->get(['id', 'name', 'slug']) as $category)
+                                    <x-slot:topSellProduct>
+                                        <a href="{{ route('product.show', $interiorTopProduct->slug) }}" class="mt-6 block font-medium text-gray-900">
+                                            <span class="absolute inset-0 z-10" aria-hidden="true"></span>
+                                            {{ $interiorTopProduct->name }}
+                                        </a>
+                                    </x-slot:topSellProduct>
+                                    <x-slot:topSellBrand>
+                                        ererzererz
+                                    </x-slot:topSellBrand>
+
+                                    @foreach($interiorCategories as $category)
                                         <x-nav.header-links-group>
                                             {{ $category->name }}
                                             <x-slot:content>

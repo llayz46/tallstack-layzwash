@@ -13,13 +13,17 @@
                 <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
                     <div class="col-span-full flex items-center gap-x-8">
                         @if($form->avatar)
-                            <img src="{{ $form->avatar->temporaryUrl() }}" alt="" class="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover">
+                            <img src="{{ $form->avatar->temporaryUrl() }}" alt="" class="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover border-2 border-primary-600">
                         @elseif($user->avatar)
                             <img src="{{ asset('storage/' . $user->avatar) }}" alt="" class="h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover">
                         @endif
                         <div>
-                            <button type="button" class="relative overflow-hidden rounded-md px-3 py-2 text-sm cursor-pointer font-semibold text-white shadow-sm bg-gray-700 hover:bg-gray-800">
+                            <button type="button" wire:loading.attr="disabled" class="flex relative overflow-hidden rounded-md px-3 py-2 text-sm cursor-pointer font-semibold text-white shadow-sm bg-gray-700 hover:bg-gray-800">
                                 <input type="file" wire:model.defer="form.avatar" id="avatar" class="cursor-pointer absolute left-0 top-0 right-0 bottom-0 opacity-0">
+                                <svg wire:loading class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
                                 Change avatar
                             </button>
                             <p class="mt-2 text-xs leading-5 text-gray-500">JPG, WEBP or PNG. 2MB max.</p>
@@ -46,7 +50,7 @@
                 </div>
 
                 <div class="mt-8 flex">
-                    <x-form.button-submit class="!w-fit">Update</x-form.button-submit>
+                    <x-form.button-submit class="!w-fit" wire:loading.attr="disabled">Update</x-form.button-submit>
                 </div>
             </form>
         </div>

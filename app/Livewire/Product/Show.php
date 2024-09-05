@@ -5,12 +5,10 @@ namespace App\Livewire\Product;
 use App\Actions\Cart\AddProductVariantToCart;
 use App\Models\Product;
 use App\Models\ProductVariant;
-use Livewire\Attributes\Layout;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use WireUi\Traits\WireUiActions;
-
-#[Layout('components.layouts.app', ['header' => true, 'title' => 'categorie - nom produit'])]
 
 class Show extends Component
 {
@@ -18,18 +16,32 @@ class Show extends Component
 
     public Product $product;
 
-    #[Validate('required', message: 'The variant field is required')]
+    public Collection $similarProducts;
+
+    #[Validate('required', message: 'Please select a variant')]
     #[Validate('exists:product_variants,id', message: 'The selected variant is invalid')]
     public $variant;
 
     public function mount($product)
     {
         $this->product = $product->load('category', 'brand', 'variants');
+
+        $this->similarProducts = $this->product->getSimilarProducts($this->product, 'brand');
     }
 
     public function addToCart(AddProductVariantToCart $action)
     {
         $this->validate();
+
+        if(!ProductVariant::findOrFail($this->variant)->stock) {
+            $this->notification()->send([
+                'icon' => 'error',
+                'title' => 'Error!',
+                'description' => 'Sorry, this product is out of stock',
+            ]);
+
+            return;
+        }
 
         $action->add(
             variantId: $this->variant,
@@ -46,6 +58,9 @@ class Show extends Component
 
     public function render()
     {
-        return view('livewire.product.show');
+        return view('livewire.product.show')
+            ->layout('components.layouts.app', [
+                'header' => true, 'title' => $this->product->brand->name . " - " . $this->product->name
+            ]);
     }
 }

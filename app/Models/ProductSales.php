@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ProductVariant extends Model
+class ProductSales extends Model
 {
-    use HasFactory;
+//    use HasFactory;
 
-    protected $fillable = ['capacity', 'size', 'stock'];
+    protected $fillable = ['quantity'];
 
     public function product(): BelongsTo
     {

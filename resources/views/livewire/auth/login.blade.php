@@ -18,6 +18,10 @@
                 <x-form.input-text wire:model="form.password" type="password" id="password" field="form.password"/>
             </div>
 
+            <div>
+                <x-form.input-checkbox wire:model="form.remember">Remember me</x-form.input-checkbox>
+            </div>
+
             <x-form.button-submit>Sign in</x-form.button-submit>
         </form>
 

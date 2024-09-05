@@ -6,6 +6,7 @@ use App\Actions\Cart\MigrateSessionCart;
 use App\Factories\CartFactory;
 use App\Livewire\Forms\LoginForm;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 
@@ -31,7 +32,7 @@ class Login extends Component
             (new MigrateSessionCart)->migrate(CartFactory::make(), $user->cart ?: $user->cart()->create());
         }
 
-        if (auth()->attempt($credentials)) {
+        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password']], $credentials['remember'])) {
             session()->regenerate();
 
             return redirect()->intended(route('home'));

@@ -13,4 +13,7 @@ class LoginForm extends Form
 
     #[Validate('required', message: 'The password field is required')]
     public string $password;
+
+    #[Validate('boolean')]
+    public bool $remember = false;
 }
