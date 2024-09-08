@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,9 +14,13 @@ class Header extends Component
 
     public Product $exteriorTopProduct;
 
+    public Brand $exteriorTopBrand;
+
     public Collection $interiorCategories;
 
     public Product $interiorTopProduct;
+
+    public Brand $interiorTopBrand;
 
     public function mount()
     {
@@ -43,6 +48,22 @@ class Header extends Component
             ->get()->first();
 
         $this->interiorTopProduct = Product::select('products.name', 'products.slug', 'products.id', 'products.category_id')
+            ->join('product_sales', 'product_sales.product_id', '=', 'products.id')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->where('categories.type', 'interior')
+            ->orderBy('product_sales.quantity', 'desc')
+            ->get()->first();
+
+        $this->exteriorTopBrand = Brand::select('brands.name', 'brands.slug', 'brands.id')
+            ->join('products', 'products.brand_id', '=', 'brands.id')
+            ->join('product_sales', 'product_sales.product_id', '=', 'products.id')
+            ->join('categories', 'categories.id', '=', 'products.category_id')
+            ->where('categories.type', 'exterior')
+            ->orderBy('product_sales.quantity', 'desc')
+            ->get()->first();
+
+        $this->interiorTopBrand = Brand::select('brands.name', 'brands.slug', 'brands.id')
+            ->join('products', 'products.brand_id', '=', 'brands.id')
             ->join('product_sales', 'product_sales.product_id', '=', 'products.id')
             ->join('categories', 'categories.id', '=', 'products.category_id')
             ->where('categories.type', 'interior')

@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
-            'avatar' => fake()->imageUrl(),
+            'avatar' => 'https://placeholderjs.com/750x750&text=' . urlencode(fake()->firstName()) . '&background=_' . fake()->hexColor(),
             'role' => 'user',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('testtest'),

@@ -1,4 +1,4 @@
-<div {{ $attributes->class(['group relative text-base sm:text-sm']) }}>
+<div {{ $attributes->class(['group relative sm:text-base text-sm']) }}>
     <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
         {{ $image }}
     </div>

@@ -24,6 +24,7 @@
             <div class="relative py-32">
                 <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">Mid-Season Sale</h1>
                 <div class="mt-4 sm:mt-6">
+{{--                    TODO: Une page products.index mais sans aucun filtre --}}
                     <x-buttons.link href="#">Browse categories</x-buttons.link>
                 </div>
             </div>
@@ -55,6 +56,8 @@
             <div class="mt-8 text-sm md:hidden">
                 <a href="#" class="font-medium text-primary-600 hover:text-primary-500">
                     Shop the collection
+{{--                    TODO: Une page products.index trier par produit les plus vendus --}}
+
                     <span aria-hidden="true"> &rarr;</span>
                 </a>
             </div>

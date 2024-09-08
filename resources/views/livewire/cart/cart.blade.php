@@ -50,7 +50,7 @@
                                             @foreach($this->items as $item)
                                                 <li class="flex py-6" wire:key="{{ $item->id }}">
                                                     <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                                                        <img src="https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
+                                                        <img src="{{ $item->product->mainImage()->path }}" alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="h-full w-full object-cover object-center">
                                                     </div>
 
                                                     <div class="ml-4 flex flex-1 flex-col">
