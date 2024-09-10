@@ -170,7 +170,7 @@ it('has a formatted price', function () {
         'price' => 814.9,
     ]);
 
-    expect($product->getFormattedPrice())->toBe('$814,90');
+    expect($product->getFormattedPrice())->toBe('$814.90');
 });
 
 it('get deleted when brand is deleted', function () {
