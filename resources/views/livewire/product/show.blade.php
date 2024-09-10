@@ -78,10 +78,11 @@
                         <legend class="sr-only">Choose a size</legend>
                         <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
                             @foreach($product->variants as $variant)
-                                <x-form.variant-select variant="{{ $variant->id }}">{{ $variant->size }}</x-form.variant-select>
-
-{{--                            Todo : systeme de quantité, si il n'y en a plus alors on ajoute disabled--}}
-{{--                                <x-form.variant-select variant="1" :disabled="true">1L</x-form.variant-select>--}}
+                                <x-form.variant-select
+                                    variant="{{ $variant->id }}"
+                                    :disabled="$variant->stock === 0">
+                                    {{ $variant->size }}
+                                </x-form.variant-select>
                             @endforeach
                         </div>
                         @error('variant')
