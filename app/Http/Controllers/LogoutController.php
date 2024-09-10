@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class LogoutController extends Controller
 {
     /**
@@ -14,6 +12,8 @@ class LogoutController extends Controller
         if (!auth()->user()) {
             return redirect()->route('login');
         }
+
+        auth()->logout();
 
         session()->invalidate();
         session()->regenerateToken();

@@ -2,11 +2,13 @@
 
 namespace App\Actions\Checkout;
 
+use App\Mail\OrderConfirmation;
 use App\Models\Cart;
 use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Laravel\Cashier\Cashier;
+use Mail;
 use Stripe\LineItem;
 
 class HandleCheckoutSessionCompleted
@@ -69,6 +71,8 @@ class HandleCheckoutSessionCompleted
 
             $cart->items()->delete();
             $cart->delete();
+
+            Mail::to($user)->send(new OrderConfirmation($order));
         });
     }
 }

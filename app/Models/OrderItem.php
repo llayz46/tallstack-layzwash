@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderItem extends Model
 {
@@ -22,8 +24,15 @@ class OrderItem extends Model
         'amount_total',
     ];
 
-//    public function order()
-//    {
-//        return $this->belongsTo(Order::class);
-//    }
+    protected $casts = [
+        'price' => MoneyCast::class,
+        'amount_subtotal' => MoneyCast::class,
+        'amount_tax' => MoneyCast::class,
+        'amount_total' => MoneyCast::class,
+    ];
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

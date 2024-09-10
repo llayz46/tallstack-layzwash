@@ -21,6 +21,7 @@ class CreateStripeCheckoutSession
                     'shipping_address_collection' => [
                         'allowed_countries' => ['US', 'FR', 'DE', 'GB'],
                     ],
+                    'success_url' => route('checkout.success') . '?session_id={CHECKOUT_SESSION_ID}',
                     'metadata' => [
                         'user_id' => $cart->user->id,
                         'cart_id' => $cart->id,

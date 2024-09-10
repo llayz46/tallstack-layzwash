@@ -9,6 +9,9 @@
             <li>
                 <x-nav.dashboard.header-link :active="$this->isAccountActive" href="{{ route('account') }}">Account</x-nav.dashboard.header-link>
             </li>
+            <li>
+                <x-nav.dashboard.header-link :active="request()->routeIs('orders.*')" href="{{ route('orders.index') }}">Orders</x-nav.dashboard.header-link>
+            </li>
             @if(auth()->user()->isAdmin())
                 <li>
                     <x-nav.dashboard.header-link :active="$this->isAdminActive" href="{{ route('admin') }}">Admin</x-nav.dashboard.header-link>
