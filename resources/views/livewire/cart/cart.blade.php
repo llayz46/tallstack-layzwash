@@ -58,12 +58,11 @@
                                                             <div class="flex justify-between text-base font-medium text-gray-900">
                                                                 <h3>
                                                                     <span>
-    {{--                                                                    TODO : lien vers la marque et le produit--}}
-                                                                        <a href="#" class="hover:text-primary-500">
+                                                                        <a href="{{ route('product.index', $item->product->brand->slug) }}" class="hover:text-primary-500">
                                                                             {{ $item->product->brand->name }}
                                                                         </a>
                                                                         -
-                                                                        <a href="#" class="hover:text-primary-500">
+                                                                        <a href="{{ route('product.show', $item->product->slug) }}" class="hover:text-primary-500">
                                                                             {{ $item->product->name }}
                                                                         </a>
                                                                     </span>
