@@ -12,13 +12,13 @@
                 @if(isset($images[0]))
                     <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                         <img src="{{ $images[0]['path'] }}"
-                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[0]->path }}'" class="h-full w-full object-cover object-center">
+                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[0]->path }}'" class="h-full w-full object-cover object-center hover:opacity-75 cursor-pointer">
                     </div>
                 @endif
                 @if(isset($images[1]))
                     <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                         <img src="{{ $images[1]['path'] }}"
-                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[1]->path }}'" class="h-full w-full object-cover object-center">
+                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[1]->path }}'" class="h-full w-full object-cover object-center hover:opacity-75 cursor-pointer">
                     </div>
                 @endif
             </div>
@@ -26,13 +26,13 @@
                 @if(isset($images[2]))
                     <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                         <img src="{{ $images[2]['path'] }}"
-                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[2]->path }}'" class="h-full w-full object-cover object-center">
+                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[2]->path }}'" class="h-full w-full object-cover object-center hover:opacity-75 cursor-pointer">
                     </div>
                 @endif
                 @if(isset($images[3]))
                     <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                         <img src="{{ $images[3]['path'] }}"
-                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[3]->path }}'" class="h-full w-full object-cover object-center">
+                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[3]->path }}'" class="h-full w-full object-cover object-center hover:opacity-75 cursor-pointer">
                     </div>
                 @endif
             </div>
@@ -41,20 +41,20 @@
                 @if(isset($images[0]))
                     <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                         <img src="{{ $images[0]['path'] }}"
-                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[0]->path }}'" class="h-full w-full object-cover object-center">
+                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[0]->path }}'" class="h-full w-full object-cover object-center hover:opacity-75 cursor-pointer">
                     </div>
                 @endif
                 @if(isset($images[1]))
                     <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                         <img src="{{ $images[1]['path'] }}"
-                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[1]->path }}'" class="h-full w-full object-cover object-center">
+                             alt="Product image : {{ $product->name }}" @click="image = '{{ $images[1]->path }}'" class="h-full w-full object-cover object-center hover:opacity-75 cursor-pointer">
                     </div>
                 @endif
             </div>
             @if(isset($images[2]))
                 <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                     <img src="{{ $images[2]['path'] }}"
-                         alt="Product image : {{ $product->name }}" @click="image = '{{ $images[2]->path }}'" class="h-full w-full object-cover object-center">
+                         alt="Product image : {{ $product->name }}" @click="image = '{{ $images[2]->path }}'" class="h-full w-full object-cover object-center hover:opacity-75 cursor-pointer">
                 </div>
             @endif
         @endif
@@ -65,7 +65,7 @@
         @foreach($images as $image)
             <div class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
                 <img src="{{ $image['path'] }}" wire:key="{{ $image->id }}" @click="image = '{{ $image->path }}'"
-                     alt="Product : {{ $product->name }}" class="h-full w-full object-cover object-center">
+                     alt="Product : {{ $product->name }}" class="h-full w-full object-cover object-center hover:opacity-75 cursor-pointer">
             </div>
         @endforeach
     </div>

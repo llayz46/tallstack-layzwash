@@ -13,8 +13,7 @@
             <dl class="flex space-x-4 divide-x divide-gray-200 text-sm sm:space-x-6">
                 <div class="flex">
                     <dt class="font-medium text-gray-900">Quantity</dt>
-{{--                    TODO: dynamiser la quantité--}}
-                    <dd class="ml-2 text-gray-700">1 (pas dynamique)</dd>
+                    <dd class="ml-2 text-gray-700">{{ $item->quantity }}</dd>
                 </div>
                 <div class="flex pl-4 sm:pl-6">
                     <dt class="font-medium text-gray-900">Price</dt>
