@@ -57,7 +57,7 @@
             <dl class="space-y-6 border-t border-gray-200 pt-10 text-sm">
                 <div class="flex justify-between">
                     <dt class="font-medium text-gray-900">Subtotal</dt>
-                    <dd class="text-gray-700">{{ '$'.number_format($this->order->amount_subtotal / 100, 2) }}</dd>
+                    <dd class="text-gray-700">{{ $this->order->amount_subtotal }}</dd>
                 </div>
 {{--                <div class="flex justify-between">--}}
 {{--                    <dt class="flex font-medium text-gray-900">--}}
@@ -68,11 +68,11 @@
 {{--                </div>--}}
                 <div class="flex justify-between">
                     <dt class="font-medium text-gray-900">Taxes</dt>
-                    <dd class="text-gray-700">{{ '$'.number_format($this->order->amount_tax / 100, 2) }}</dd>
+                    <dd class="text-gray-700">{{ $this->order->amount_tax }}</dd>
                 </div>
                 <div class="flex justify-between">
                     <dt class="font-medium text-gray-900">Total</dt>
-                    <dd class="text-gray-700">{{ '$'.number_format($this->order->amount_total / 100, 2) }}</dd>
+                    <dd class="text-gray-700">{{ $this->order->amount_total }}</dd>
                 </div>
             </dl>
         </div>
