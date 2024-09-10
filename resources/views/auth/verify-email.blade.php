@@ -8,7 +8,7 @@
                         confirmation link in that email to activate your account and access all the features of our
                         site.</p>
                 </div>
-                <div class="mt-5 flex max-sm:flex-col max-sm:gap-4 sm:justify-between sm:items-end">
+                <div class="mt-5 flex max-sm:flex-col gap-4 sm:justify-between sm:items-center">
                     <livewire:auth.send-verification-email />
 
                     <form action="{{ route('auth.logout') }}" method="post">
