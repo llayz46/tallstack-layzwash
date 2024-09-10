@@ -48,7 +48,7 @@ Here are the details of your order:
 </tr>
     </tfoot>
 </table>
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => route('orders.show', $order)])
 View Order
 @endcomponent
 @endcomponent
