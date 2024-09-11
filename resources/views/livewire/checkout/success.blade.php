@@ -71,6 +71,6 @@
             </div>
         </div>
     @else
-        <p wire:poll.2000ms="checkOrderStatus">Waiting for payment confirmation...</p>
+        <p wire:poll.300ms="checkOrderStatus">Waiting for payment confirmation...</p>
     @endif
 </div>
