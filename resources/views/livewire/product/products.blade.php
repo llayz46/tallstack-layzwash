@@ -284,6 +284,10 @@
                         <x-product.card-browse-product-card :$product/>
                     @endforeach
                 </div>
+
+                <div class="mt-4 sm:mt-10">
+                    {{ $products->links() }}
+                </div>
             </section>
         </div>
     </main>
