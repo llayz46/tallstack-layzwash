@@ -24,7 +24,7 @@
             <div class="relative py-32">
                 <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">Mid-Season Sale</h1>
                 <div class="mt-4 sm:mt-6">
-                    <x-buttons.link href="{{ route('product.index') }}">Browse categories</x-buttons.link>
+                    <x-buttons.link href="{{ route('product.index') }}">Browse products</x-buttons.link>
                 </div>
             </div>
         </div>
