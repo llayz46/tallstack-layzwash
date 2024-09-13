@@ -225,8 +225,8 @@
         <x-nav.products-breadcrumb :item="$category ?? $brand"/>
 
         <div class="border-b border-gray-200 pb-10 pt-24">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900">{{ $category ? $category->name : $brand->name }}</h1>
-            <p class="mt-4 text-base text-gray-500">{{ $category ? $category->description : $brand->banner }}</p>
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900">{{ $category ? $category->name : ($brand ? $brand->name : 'All products') }}</h1>
+            <p class="mt-4 text-base text-gray-500">{{ $category ? $category->description : ($brand ? $brand->banner : 'Browse all our products') }}</p>
         </div>
 
         <div class="pb-24 pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">

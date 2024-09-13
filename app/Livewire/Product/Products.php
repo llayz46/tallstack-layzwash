@@ -9,31 +9,40 @@ use Livewire\Component;
 
 class Products extends Component
 {
-    public ?Category $category;
+    public ?Category $category = null;
 
-    public ?Brand $brand;
+    public ?Brand $brand = null;
 
-    public function mount(String $slug)
+    public function mount(?String $slug = null)
     {
-        $this->category = Category::where('slug', $slug)->first();
+        if ($slug) {
+            $this->category = Category::where('slug', $slug)->first();
 
-        if (!$this->category) {
-            $this->brand = Brand::where('slug', $slug)->first();
-        }
+            if (!$this->category) {
+                $this->brand = Brand::where('slug', $slug)->first();
+            }
 
-        if (!$this->category && !$this->brand) {
-            abort(404);
+            if (!$this->category && !$this->brand) {
+                abort(404);
+            }
         }
     }
 
     public function render()
     {
+        $products = Product::query();
+
+        if ($this->category) {
+            $products->where('category_id', $this->category->id);
+        } elseif ($this->brand) {
+            $products->where('brand_id', $this->brand->id);
+        }
+
         return view('livewire.product.products', [
-            'products' => $this->category
-                ? Product::where('category_id', $this->category->id)->get()
-                : Product::where('brand_id', $this->brand->id)->get()
+            'products' => $products->paginate(12)
         ])->layout('components.layouts.app', [
-            'header' => true, 'title' => $this->category ? $this->category->name : $this->brand->name
+            'header' => true,
+            'title' => $this->category ? $this->category->name : ($this->brand ? $this->brand->name : 'All Products')
         ]);
     }
 }

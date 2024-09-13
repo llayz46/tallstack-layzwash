@@ -44,7 +44,7 @@ Route::name('orders.')->prefix('/orders')->middleware('verified')->group(functio
 Route::get('/admin', Admin::class)->middleware('admin')->name('admin');
 
 Route::name('product.')->group(function () {
-    Route::get('/products/{slug}', Products::class)->name('index');
+    Route::get('/products/{slug?}', Products::class)->name('index');
     Route::get('/{product:slug}', Show::class)->name('show');
 });
 
