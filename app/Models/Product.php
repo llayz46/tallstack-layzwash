@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -83,7 +84,6 @@ class Product extends Model
 
     public function getSimilarProducts(Product $product, string $priority = 'brand')
     {
-        $fetchedProductIds = [$product->id];
         $maxIterations = 2;
 
         $this->similarProducts = Product::where(function ($query) use ($product, $priority) {
@@ -93,12 +93,10 @@ class Product extends Model
                 $query->where('category_id', $product->category_id);
             }
         })
-            ->whereNotIn('id', $fetchedProductIds)
+            ->where('id', '!=', $product->id)
             ->inRandomOrder()
             ->limit(2)
             ->get();
-
-        $fetchedProductIds = $this->similarProducts->pluck('id')->toArray();
 
         while (count($this->similarProducts) < 4 && $maxIterations > 0) {
             $additionalProducts = Product::where(function ($query) use ($product, $priority) {
@@ -108,13 +106,12 @@ class Product extends Model
                     $query->where('brand_id', $product->brand_id);
                 }
             })
-                ->whereNotIn('id', $fetchedProductIds)
+                ->where('id', '!=', $product->id)
                 ->inRandomOrder()
                 ->limit(2)
                 ->get();
 
             $this->similarProducts = $this->similarProducts->concat($additionalProducts);
-            $fetchedProductIds = array_merge($fetchedProductIds, $additionalProducts->pluck('id')->toArray());
 
             $priority = $priority === 'brand' ? 'category' : 'brand'; // Alterner la priorité à chaque itération
             $maxIterations--;
