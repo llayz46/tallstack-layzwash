@@ -32,7 +32,11 @@ class Products extends Component
     {
         $products = Product::query();
 
-        if ($this->category) {
+        if (request()->has('top_selling')){
+            $products->select('products.*')
+                     ->join('product_sales', 'products.id', '=', 'product_sales.product_id')
+                     ->orderBy('product_sales.quantity', 'desc');
+        } elseif ($this->category) {
             $products->where('category_id', $this->category->id);
         } elseif ($this->brand) {
             $products->where('brand_id', $this->brand->id);

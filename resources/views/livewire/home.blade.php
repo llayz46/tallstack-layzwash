@@ -43,7 +43,7 @@
         <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8 lg:pt-32">
             <div class="md:flex md:items-center md:justify-between">
                 <h2 id="favorites-heading" class="text-2xl font-bold tracking-tight text-gray-900">Trending Products</h2>
-                <x-buttons.text-arrow-link class="hidden md:block" href="#">Shop the collection</x-buttons.text-arrow-link>
+                <x-buttons.text-arrow-link class="hidden md:block" href="{{ route('product.index', ['top_selling' => 1]) }}">Shop the collection</x-buttons.text-arrow-link>
             </div>
 
             <div class="mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-0 lg:gap-x-8">
@@ -53,7 +53,7 @@
             </div>
 
             <div class="mt-8 text-sm md:hidden">
-                <a href="#" class="font-medium text-primary-600 hover:text-primary-500">
+                <a href="{{ route('product.index', ['top_selling' => 1]) }}" class="font-medium text-primary-600 hover:text-primary-500">
                     Shop the collection
 {{--                    TODO: Une page products.index trier par produit les plus vendus --}}
 
