@@ -14,6 +14,7 @@ use App\Livewire\Product\Products;
 use App\Livewire\Product\Show;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Route;
+use Laravel\Cashier\Http\Controllers\WebhookController;
 
 Route::get('/', Home::class)->name('home');
 
@@ -52,4 +53,4 @@ Route::name('checkout.')->middleware('auth')->group(function () {
     Route::get('/checkout/success', Success::class)->name('success');
 });
 
-Route::stripeWebhooks('https://layzwash.llayz.fr/stripe/webhook');
+Route::post('/stripe/webhook', [WebhookController::class, 'handleWebhook']);
