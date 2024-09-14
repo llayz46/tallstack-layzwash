@@ -8,7 +8,7 @@
     </div>
     <div class="flex flex-1 flex-col space-y-2 p-4">
         <h3 class="text-sm font-medium text-gray-900">
-            <a href="{{ route('product.show', $product->slug) }}">
+            <a href="{{ route('product.show', $product->slug) }}" wire:navigate>
                 <span aria-hidden="true" class="absolute inset-0"></span>
                 {{ $product->brand->name }} - {{ $product->name }}
             </a>

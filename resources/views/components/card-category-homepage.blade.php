@@ -10,7 +10,7 @@
             <div class="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-50"></div>
         </div>
         <div class="absolute inset-0 flex items-end rounded-lg p-6">
-            <a href="{{ $href }}">
+            <a href="{{ $href }}" wire:navigate>
                 <p aria-hidden="true" class="text-sm text-white">Shop the collection</p>
                 <h3 class="mt-1 font-semibold text-white">
                     {{ $slot }}

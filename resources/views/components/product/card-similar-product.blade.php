@@ -11,7 +11,7 @@
     </div>
     <div class="mt-4 flex items-center justify-between space-x-8 text-base font-medium text-gray-900">
         <h3>
-            <a href="{{ route('product.show', $product->slug) }}">
+            <a href="{{ route('product.show', $product->slug) }}" wire:navigate>
                 <span aria-hidden="true" class="absolute inset-0"></span>
                 {{ $product->name }}
             </a>
