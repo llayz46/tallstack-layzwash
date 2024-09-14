@@ -51,3 +51,5 @@ Route::name('product.')->group(function () {
 Route::name('checkout.')->middleware('auth')->group(function () {
     Route::get('/checkout/success', Success::class)->name('success');
 });
+
+Route::stripeWebhooks('https://layzwash.llayz.fr/stripe/webhook');
