@@ -55,7 +55,6 @@
             <div class="mt-8 text-sm md:hidden">
                 <a href="{{ route('product.index', ['top_selling' => 1]) }}" class="font-medium text-primary-600 hover:text-primary-500">
                     Shop the collection
-{{--                    TODO: Une page products.index trier par produit les plus vendus --}}
 
                     <span aria-hidden="true"> &rarr;</span>
                 </a>

@@ -17,8 +17,15 @@
                 </div>
                 <p class="hidden text-gray-500 sm:mt-2 sm:block">{{ $item->product->description }}</p>
             </div>
-            <a href="{{ route('product.show', $item->product) }}"
-               class="whitespace-nowrap text-primary-600 hover:text-primary-500 sm:ml-auto">View product</a>
+            @if(Route::is('orders.show'))
+                <div class="flex gap-8 sm:ml-auto">
+                    <button wire:click="$dispatch('openReviewModal', { item: @js($item) })" class="whitespace-nowrap text-primary-600 hover:text-primary-500">Add review</button>
+                    <a href="{{ route('product.show', $item->product) }}"
+                       class="whitespace-nowrap text-primary-600 hover:text-primary-500">
+                        View product
+                    </a>
+                </div>
+            @endif
         </div>
     </div>
 </li>
