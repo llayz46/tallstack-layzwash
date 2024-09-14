@@ -164,7 +164,7 @@
                                             <x-slot:content>
                                                 @foreach($category->children as $childCategory)
                                                     <li class="flex">
-                                                        <a href="{{ route('product.index', $childCategory->slug) }}" class="hover:text-gray-800">{{ $childCategory->name }}</a>
+                                                        <a href="{{ route('product.index', $childCategory->slug) }}" class="hover:text-gray-800" wire:navigate>{{ $childCategory->name }}</a>
                                                     </li>
                                                 @endforeach
                                             </x-slot:content>
@@ -194,7 +194,7 @@
                                             <x-slot:content>
                                                 @foreach($category->children as $childCategory)
                                                     <li class="flex">
-                                                        <a href="{{ route('product.index', $childCategory->slug) }}" class="hover:text-gray-800">{{ $childCategory->name }}</a>
+                                                        <a href="{{ route('product.index', $childCategory->slug) }}" class="hover:text-gray-800" wire:navigate>{{ $childCategory->name }}</a>
                                                     </li>
                                                 @endforeach
                                             </x-slot:content>
