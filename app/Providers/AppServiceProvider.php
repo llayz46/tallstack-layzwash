@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
@@ -27,5 +28,10 @@ class AppServiceProvider extends ServiceProvider
         Authenticate::redirectUsing(function ($request) {
             return route('auth.login');
         });
+
+//        Blade::anonymousComponentPath(
+//            __DIR__ . '/../../resources/views/livewire',
+//            'livewire'
+//        );
     }
 }
