@@ -152,7 +152,7 @@
                                         </a>
                                     </x-slot:topSellProduct>
                                     <x-slot:topSellBrand>
-                                        <a href="{{ route('product.show', $exteriorTopBrand->slug) }}" class="mt-6 block font-medium text-gray-900">
+                                        <a href="{{ route('product.index', $exteriorTopBrand->slug) }}" class="mt-6 block font-medium text-gray-900">
                                             <span class="absolute inset-0 z-10" aria-hidden="true"></span>
                                             {{ $exteriorTopBrand->name }}
                                         </a>
@@ -182,7 +182,7 @@
                                         </a>
                                     </x-slot:topSellProduct>
                                     <x-slot:topSellBrand>
-                                        <a href="{{ route('product.show', $interiorTopBrand->slug) }}" class="mt-6 block font-medium text-gray-900">
+                                        <a href="{{ route('product.index', $interiorTopBrand->slug) }}" class="mt-6 block font-medium text-gray-900">
                                             <span class="absolute inset-0 z-10" aria-hidden="true"></span>
                                             {{ $interiorTopBrand->name }}
                                         </a>

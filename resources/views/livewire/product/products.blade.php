@@ -121,11 +121,11 @@
     </div>
 
     <main class="mx-auto max-w-2xl px-4 lg:max-w-7xl lg:px-8">
-        <x-nav.products-breadcrumb :item="$this->category ?? $brand"/>
+        <x-nav.products-breadcrumb :item="$this->category ?? $this->brand"/>
 
         <div class="border-b border-gray-200 pb-10 pt-24">
-            <h1 class="text-4xl font-bold tracking-tight text-gray-900">{{ $this->category ? $category['name'] : ($brand ? $brand['name'] : 'All products') }}</h1>
-            <p class="mt-4 text-base text-gray-500">{{ $this->category ? $category['description'] : ($brand ? $brand['banner'] : 'Browse all our products') }}</p>
+            <h1 class="text-4xl font-bold tracking-tight text-gray-900">{{ $this->category ? $category['name'] : ($this->brand ? $brand['name'] : 'All products') }}</h1>
+            <p class="mt-4 text-base text-gray-500">{{ $this->category ? $category['description'] : ($this->brand ? $brand['banner'] : 'Browse all our products') }}</p>
         </div>
 
         <div class="pb-24 pt-12 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
