@@ -119,4 +119,15 @@ class Product extends Model
 
         return $this->similarProducts;
     }
+
+    public function getRating(): float
+    {
+        $ratings = $this->comments->pluck('rating');
+
+        if ($ratings->isEmpty()) {
+            return 0;
+        }
+
+        return round($ratings->average(), 1);
+    }
 }

@@ -22,9 +22,13 @@ class Show extends Component
     #[Validate('exists:product_variants,id', message: 'The selected variant is invalid')]
     public $variant;
 
+    public $comments;
+
     public function mount($product)
     {
         $this->product = $product->load('category', 'brand', 'variants');
+
+        $this->comments = $this->product->comments()->with('user')->orderBy('id', 'desc')->limit(4)->get();
 
         $this->similarProducts = $this->product->getSimilarProducts($this->product, 'brand');
     }
