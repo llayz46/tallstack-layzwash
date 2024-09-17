@@ -55,6 +55,29 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="mt-4 sm:ml-6 sm:mt-0 sm:flex-shrink-0 relative flex items-center"
+                                             x-data="{
+                                                 copyText: '4242 4242 4242 4242',
+                                                 copyNotification: false,
+                                                 copyToClipboard() {
+                                                     navigator.clipboard.writeText(this.copyText);
+                                                     this.copyNotification = true;
+                                                     let that = this;
+                                                     setTimeout(function(){
+                                                         that.copyNotification = false;
+                                                     }, 3000);
+                                                 }
+                                             }">
+                                            <div x-show="copyNotification" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 translate-x-2" x-transition:enter-end="opacity-100 translate-x-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-x-0" x-transition:leave-end="opacity-0 translate-x-2" class="absolute left-0" x-cloak>
+                                                <div class="px-3 h-7 -ml-1.5 items-center flex text-xs bg-green-500 border-r border-green-500 -translate-x-full text-white rounded">
+                                                    <span>Copied!</span>
+                                                    <div class="absolute right-0 inline-block h-full -mt-px overflow-hidden translate-x-3 -translate-y-2 top-1/2">
+                                                        <div class="w-3 h-3 origin-top-left transform rotate-45 bg-green-500 border border-transparent"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button @click="copyToClipboard()" type="button" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Copy</button>
+                                        </div>
                                     </div>
 
                                     <ul role="list" class="-my-6 divide-y divide-gray-200" x-show="showItems">
