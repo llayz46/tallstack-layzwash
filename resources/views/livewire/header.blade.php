@@ -220,9 +220,9 @@
                                         <div class="flex items-center">
                                             <button @click="userMenu = ! userMenu" class="group">
                                                 @if(auth()->user()->avatar)
-                                                    <img class="inline-block h-9 w-9 rounded-full group-focus:outline-none group-focus:ring-2 group-focus:ring-primary-600 group-focus:ring-offset-2" src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="">
+                                                    <img class="inline-block object-cover h-9 w-9 rounded-full group-focus:outline-none group-focus:ring-2 group-focus:ring-primary-600 group-focus:ring-offset-2" src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="">
                                                 @else
-                                                    <img class="inline-block h-9 w-9 rounded-full group-focus:outline-none group-focus:ring-2 group-focus:ring-primary-600 group-focus:ring-offset-2" src="https://ui-avatars.com/api/?background=ebe6ef&name={{ auth()->user()->first_name }}+{{ auth()->user()->last_name }}&color=ea546c&font-size=0.5&semibold=true&format=svg" alt="">
+                                                    <img class="inline-block object-cover h-9 w-9 rounded-full group-focus:outline-none group-focus:ring-2 group-focus:ring-primary-600 group-focus:ring-offset-2" src="https://ui-avatars.com/api/?background=ebe6ef&name={{ auth()->user()->first_name }}+{{ auth()->user()->last_name }}&color=ea546c&font-size=0.5&semibold=true&format=svg" alt="">
                                                 @endif
                                             </button>
                                             <div class="ml-3">

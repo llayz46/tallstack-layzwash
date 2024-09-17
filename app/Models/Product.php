@@ -82,40 +82,16 @@ class Product extends Model
             ->get();
     }
 
-    public function getSimilarProducts(Product $product, string $priority = 'brand')
+    public function getSimilarProducts(Product $product): Collection
     {
-        $maxIterations = 2;
-
-        $this->similarProducts = Product::where(function ($query) use ($product, $priority) {
-            if ($priority === 'brand') {
-                $query->where('brand_id', $product->brand_id);
-            } else {
-                $query->where('category_id', $product->category_id);
-            }
-        })
-            ->where('id', '!=', $product->id)
-            ->inRandomOrder()
-            ->limit(2)
-            ->get();
-
-        while (count($this->similarProducts) < 4 && $maxIterations > 0) {
-            $additionalProducts = Product::where(function ($query) use ($product, $priority) {
-                if ($priority === 'brand') {
-                    $query->where('category_id', $product->category_id);
-                } else {
-                    $query->where('brand_id', $product->brand_id);
-                }
+        $this->similarProducts = Product::where('id', '!=', $product->id)
+            ->where(function ($query) use ($product) {
+                $query->where('category_id', $product->category_id)
+                    ->orWhere('brand_id', $product->brand_id);
             })
-                ->where('id', '!=', $product->id)
-                ->inRandomOrder()
-                ->limit(2)
-                ->get();
-
-            $this->similarProducts = $this->similarProducts->concat($additionalProducts);
-
-            $priority = $priority === 'brand' ? 'category' : 'brand'; // Alterner la priorité à chaque itération
-            $maxIterations--;
-        }
+            ->inRandomOrder()
+            ->limit(4)
+            ->get();
 
         return $this->similarProducts;
     }
