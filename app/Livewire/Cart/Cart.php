@@ -6,9 +6,12 @@ use App\Actions\Cart\CreateStripeCheckoutSession;
 use App\Factories\CartFactory;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use WireUi\Traits\WireUiActions;
 
 class Cart extends Component
 {
+    use WireUiActions;
+
     public function getCartProperty()
     {
         return CartFactory::make();
@@ -16,6 +19,15 @@ class Cart extends Component
 
     public function checkout(CreateStripeCheckoutSession $createStripeCheckoutSession)
     {
+        if ($this->cart->items->isEmpty()) {
+            $this->notification()->send([
+                'icon' => 'error',
+                'title' => 'Empty cart!',
+                'description' => 'Your cart is empty!',
+            ]);
+            return null;
+        }
+
         return $createStripeCheckoutSession->createFromCart($this->cart);
     }
 
