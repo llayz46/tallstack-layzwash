@@ -42,7 +42,11 @@
                         @endforeach
                     </ul>
                 @else
-                    <p wire:loading.remove class="p-4 text-sm text-gray-500">No result found.</p>
+                    <ul wire:loading.remove class="max-h-72 scroll-py-2 overflow-y-auto py-2 text-sm text-gray-800" id="options" role="listbox">
+                        @foreach ($topProducts as $product)
+                            <x-product.search-result wire:key="{{ $product->id }}" href="{{ route('product.show', ['product' => $product->slug]) }}">{{ $product->brand->name }} - {{ $product->name }}</x-product.search-result>
+                        @endforeach
+                    </ul>
                 @endif
 
                 @if($products->count() === 0)
