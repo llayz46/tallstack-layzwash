@@ -30,7 +30,7 @@ class Show extends Component
 
         $this->comments = $this->product->comments()->with('user')->orderBy('id', 'desc')->limit(4)->get();
 
-        $this->similarProducts = $this->product->getSimilarProducts($this->product, 'brand');
+        $this->similarProducts = $this->product->getSimilarProducts($this->product);
     }
 
     public function addToCart(AddProductVariantToCart $action)
