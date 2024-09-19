@@ -52,7 +52,7 @@
                             </a>
                         </x-slot:topSellProduct>
                         <x-slot:topSellBrand>
-                            <a href="{{ route('product.show', $exteriorTopBrand->slug) }}" class="mt-6 block font-medium text-gray-900">
+                            <a href="{{ route('product.index', $exteriorTopBrand->slug) }}" class="mt-6 block font-medium text-gray-900">
                                 <span class="absolute inset-0 z-10" aria-hidden="true"></span>
                                 {{ $exteriorTopBrand->name }}
                             </a>
@@ -81,7 +81,7 @@
                             </a>
                         </x-slot:topSellProduct>
                         <x-slot:topSellBrand>
-                            <a href="{{ route('product.show', $interiorTopBrand->slug) }}" class="mt-6 block font-medium text-gray-900">
+                            <a href="{{ route('product.index', $interiorTopBrand->slug) }}" class="mt-6 block font-medium text-gray-900">
                                 <span class="absolute inset-0 z-10" aria-hidden="true"></span>
                                 {{ $interiorTopBrand->name }}
                             </a>
@@ -103,12 +103,18 @@
                 </div>
 
                 <div class="space-y-6 border-t border-gray-200 px-4 py-6">
-                    <div class="flow-root">
-                        <a href="{{ route('auth.login') }}" class="-m-2 block p-2 font-medium text-gray-900">Sign in</a>
-                    </div>
-                    <div class="flow-root">
-                        <a href="{{ route('auth.register') }}" class="-m-2 block p-2 font-medium text-gray-900">Create account</a>
-                    </div>
+                    @guest
+                        <div class="flow-root">
+                            <a href="{{ route('auth.login') }}" class="-m-2 block p-2 font-medium text-gray-900">Sign in</a>
+                        </div>
+                        <div class="flow-root">
+                            <a href="{{ route('auth.register') }}" class="-m-2 block p-2 font-medium text-gray-900">Create account</a>
+                        </div>
+                    @else
+                        <div class="flow-root">
+                            <a href="{{ route('account') }}" class="-m-2 block p-2 font-medium text-gray-900">Profile</a>
+                        </div>
+                    @endguest
                 </div>
             </div>
         </div>

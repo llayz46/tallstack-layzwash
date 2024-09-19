@@ -9,7 +9,7 @@
             <img src="{{ $item->product->mainImage()->path }}" alt="Product image of : {{ $item->product }}"
                  class="h-full w-full object-cover object-center">
         </div>
-        <div class="h-20 sm:h-40 ml-6 text-sm flex flex-col justify-between">
+        <div class="h-20 sm:h-40 ml-6 w-full text-sm flex flex-col justify-between">
             <div class="flex-1">
                 <div class="font-medium text-gray-900 sm:flex sm:justify-between">
                     <h5>{{ $item->brand->name }} - {{ $item->name }}</h5>
@@ -19,9 +19,9 @@
             </div>
             @if(Route::is('orders.show'))
                 <div class="flex gap-8 sm:ml-auto">
-                    <button wire:click="$dispatch('openReviewModal', { item: @js($item) })" class="whitespace-nowrap text-primary-600 hover:text-primary-500">Add review</button>
+                    <button @click="addReviewModal=true" class="whitespace-nowrap text-primary-600 hover:text-primary-500">{{ auth()->user()->hasReviewed($item->product->id) ? 'Modify Review' : 'Add review' }}</button>
                     <a href="{{ route('product.show', $item->product) }}"
-                       class="whitespace-nowrap text-primary-600 hover:text-primary-500">
+                       class="whitespace-nowrap text-primary-600 hover:text-primary-500" wire:navigate>
                         View product
                     </a>
                 </div>
