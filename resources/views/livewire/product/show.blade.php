@@ -130,7 +130,7 @@
                             </div>
 
                             <div class="order-1 flex items-center sm:flex-col sm:items-start">
-                                <img src="{{ $comment->user->avatar }}" alt="Mark Edwards." class="h-12 w-12 rounded-full">
+                                <img src="{{ $comment->user->avatar }}" alt="{{ $comment->user->getFullName() }}" class="h-12 w-12 rounded-full object-cover">
 
                                 <div class="ml-4 sm:ml-0 sm:mt-4">
                                     <p class="text-sm font-medium text-gray-900">{{ $comment->user->getFullName() }}</p>
