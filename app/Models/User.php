@@ -70,4 +70,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Order::class);
     }
+
+    public function productComments(): HasMany
+    {
+        return $this->hasMany(ProductComment::class);
+    }
+
+    public function reviewedProduct(int $productId): ProductComment
+    {
+        return $this->productComments()->where('product_id', $productId)->first();
+    }
+
+    public function hasReviewed(int $productId): ?ProductComment
+    {
+        return $this->productComments()->where('product_id', $productId)->first();
+    }
 }

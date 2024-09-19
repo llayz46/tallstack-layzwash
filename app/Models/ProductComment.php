@@ -14,6 +14,8 @@ class ProductComment extends Model
         'title',
         'content',
         'rating',
+        'user_id',
+        'product_id'
     ];
 
     public function user(): BelongsTo
