@@ -130,7 +130,11 @@
                             </div>
 
                             <div class="order-1 flex items-center sm:flex-col sm:items-start">
-                                <img src="{{ $comment->user->avatar }}" alt="{{ $comment->user->getFullName() }}" class="h-12 w-12 rounded-full object-cover">
+                                @if(str_starts_with($comment->user->avatar, 'https'))
+                                    <img src="{{ $comment->user->avatar }}" alt="{{ $comment->user->getFullName() }}" class="h-12 w-12 rounded-full object-cover">
+                                @else
+                                    <img src="{{ Storage::url($comment->user->avatar) }}" alt="{{ $comment->user->getFullName() }}" class="h-12 w-12 rounded-full object-cover">
+                                @endif
 
                                 <div class="ml-4 sm:ml-0 sm:mt-4">
                                     <p class="text-sm font-medium text-gray-900">{{ $comment->user->getFullName() }}</p>
