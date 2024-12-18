@@ -15,7 +15,8 @@ class Products extends Component
     public ?Category $category = null;
     public ?Brand $brand = null;
 
-    public array $allBrands = [];
+    public $allBrands;
+
     public array $filterByBrands = [];
 
     public array $categories = [];
@@ -36,7 +37,7 @@ class Products extends Component
             }
         }
 
-//        $this->allBrands = Brand::orderBy('name')->get()->toArray();
+        $this->allBrands = collect();
     }
 
     public function updatedFilterByBrands() // Reset la pagination quand on filtre par marque
@@ -77,9 +78,14 @@ class Products extends Component
         }
 
         $productsBrand = $products->get()->pluck('brand_id')->unique()->toArray();
-        foreach ($productsBrand as $brand){
-            $this->allBrands[] = Brand::find($brand);
+        $brands = Brand::whereIn('id', $productsBrand)->get()->keyBy('id');
+        foreach ($productsBrand as $brandId) {
+            if (!$this->allBrands->has($brandId)) {
+                $this->allBrands->put($brandId, $brands[$brandId]);
+            }
         }
+
+        $this->allBrands->sortBy('name');
 
         return view('livewire.product.products', [
             'products' => $products->paginate(12),
