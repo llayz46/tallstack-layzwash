@@ -36,7 +36,7 @@ class Products extends Component
             }
         }
 
-        $this->allBrands = Brand::orderBy('name')->get()->toArray();
+//        $this->allBrands = Brand::orderBy('name')->get()->toArray();
     }
 
     public function updatedFilterByBrands() // Reset la pagination quand on filtre par marque
@@ -74,6 +74,11 @@ class Products extends Component
 
         if (!empty($this->filterByCategories)) {
             $products->whereIn('category_id', $this->filterByCategories);
+        }
+
+        $productsBrand = $products->get()->pluck('brand_id')->unique()->toArray();
+        foreach ($productsBrand as $brand){
+            $this->allBrands[] = Brand::find($brand);
         }
 
         return view('livewire.product.products', [
