@@ -22,7 +22,7 @@
                     <div class="col-start-2 grid grid-cols-2 gap-x-8">
                         <x-nav.header-top-sell>
                             <x-slot:image>
-                                <img src="https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg"
+                                <img src="{{ Vite::asset('resources/images/header-top-products/top-product-1.webp') }}"
                                      alt="Drawstring top with elastic loop closure and textured interior padding."
                                      class="object-cover object-center">
                             </x-slot:image>
@@ -30,7 +30,7 @@
                         </x-nav.header-top-sell>
                         <x-nav.header-top-sell>
                             <x-slot:image>
-                                <img src="https://tailwindui.com/img/ecommerce-images/product-page-04-detail-product-shot-01.jpg"
+                                <img src="{{ Vite::asset('resources/images/header-top-products/top-product-2.jpg') }}"
                                      alt="Drawstring top with elastic loop closure and textured interior padding."
                                      class="object-cover object-center">
                             </x-slot:image>
